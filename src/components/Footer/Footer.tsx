@@ -8,17 +8,17 @@ export default function Footer() {
         <ul className="flex place-content-evenly text-2xl">
           <li>
             <Link href="/">
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-user"></i>
             </Link>
           </li>
           <li>
             <Link href="/">
-              <i class="fa-solid fa-map"></i>
+              <i className="fa-solid fa-map"></i>
             </Link>
           </li>
           <li>
             <Link href="/">
-              <i class="fa-solid fa-plus"></i>
+              <i className="fa-solid fa-plus"></i>
             </Link>
           </li>
         </ul>
