@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="absolute bottom-0">
+    <footer className="bg-lime-200">
       <nav>
-        <ul className="flex flex-row justify-between">
+        <ul className="flex place-content-evenly text-2xl">
           <li>
             <Link href="/">
               <i class="fa-solid fa-user"></i>

@@ -1,9 +1,12 @@
-import Layout from "../../components/Layout/Layout";
+import Layout from "../components/Layout/Layout";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <Layout>
-      <main className="bg-lime-200">PAGE CONTENT</main>
+      <main>
+        <Image src="/../../public/map.png" width={500} height={500} alt="map" />
+      </main>
     </Layout>
   );
 }
