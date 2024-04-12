@@ -1,25 +1,20 @@
 "use client";
 
 import Layout from "../components/Layout/Layout";
-import React from "react";
-import Map from "react-map-gl/dist/esm/components/map";
+import React, { useEffect } from "react";
+import Bikemap from "@/components/Bikemap/Bikemap";
+import { useState } from "react";
 
 export default function Home() {
+  const [isShowDetails, setIsShowDetails] = useState(false);
+  function handleShowDetails() {
+    console.log("handelShowDetails triggered");
+    setIsShowDetails(!isShowDetails);
+  }
+
   return (
     <Layout>
-      <main>
-        MAP PLACEHOLDER
-        {/* <Map
-          mapboxAccessToken="<Mapbox access token>"
-          initialViewState={{
-            longitude: -122.4,
-            latitude: 37.8,
-            zoom: 14,
-          }}
-          style={{ width: 600, height: 400 }}
-          mapStyle="mapbox://styles/mapbox/streets-v9"
-        /> */}
-      </main>
+      <Bikemap />
     </Layout>
   );
 }
