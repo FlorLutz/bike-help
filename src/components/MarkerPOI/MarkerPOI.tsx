@@ -9,6 +9,7 @@ interface MarkerPOIProps {
   latitude: number;
   title: string;
   description: string;
+  adress: string;
   openingHours: string;
   url: string;
 }
@@ -18,6 +19,7 @@ export default function MarkerPOI({
   latitude,
   title,
   description,
+  adress,
   openingHours,
   url,
 }: MarkerPOIProps) {
@@ -29,6 +31,7 @@ export default function MarkerPOI({
           <h1>Point of interest</h1>
           <h2>{title}</h2>
           <p>{description}</p>
+          <p>{adress}</p>
           <p>{openingHours}</p>
           <Link href={url}>Website</Link>
         </section>

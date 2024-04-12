@@ -41,6 +41,7 @@ export default function Bikemap() {
         longitude={13.411}
         title="Rückenwind"
         description="Selbsthilfe"
+        adress="Lenaustr. 3, Berlin"
         openingHours="Mo-Fr, 10-18"
         url="https://rueckenwind.berlin/"
       />
