@@ -29,16 +29,16 @@ export default function Bikemap() {
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
       mapLib={import("mapbox-gl")}
       initialViewState={{
-        longitude: 13.411, //currentlocation can be found with with GeolocateControl, for now, this is close to Spiced
-        latitude: 52.502,
+        latitude: 52.502, //currentlocation can be found with with GeolocateControl, for now, this is close to Spiced
+        longitude: 13.411,
         zoom: 16,
       }}
       style={{ width: viewport[0], height: viewport[1] - 95 }} // adjusts to screensize
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
       <MarkerPOI
-        longitude={13.411}
         latitude={52.502}
+        longitude={13.411}
         title="Rückenwind"
         description="Selbsthilfe"
         openingHours="Mo-Fr, 10-18"
