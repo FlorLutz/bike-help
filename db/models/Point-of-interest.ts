@@ -12,5 +12,9 @@ const pointOfInterestSchema = new Schema({
 });
 const PointOfInterest =
   mongoose.models.PointOfInterest ||
-  mongoose.model("PointOfInterest", pointOfInterestSchema);
+  mongoose.model(
+    "PointOfInterest",
+    pointOfInterestSchema,
+    "points-of-interest"
+  );
 export default PointOfInterest;
