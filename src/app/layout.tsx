@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Bike Help",
@@ -14,13 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-        <Script
-          src="https://kit.fontawesome.com/57fc571159.js"
-          crossOrigin="anonymous"
-        />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
