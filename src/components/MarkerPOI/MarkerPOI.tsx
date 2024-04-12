@@ -4,6 +4,15 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faShop } from "@fortawesome/free-solid-svg-icons";
 
+interface MarkerPOIProps {
+  longitude: number;
+  latitude: number;
+  title: string;
+  description: string;
+  openingHours: string;
+  url: string;
+}
+
 export default function MarkerPOI({
   longitude,
   latitude,
@@ -11,7 +20,7 @@ export default function MarkerPOI({
   description,
   openingHours,
   url,
-}) {
+}: MarkerPOIProps) {
   return (
     <Marker longitude={longitude} latitude={latitude} anchor="bottom">
       {/* <Image src={locationMarker} alt="location" width={40} height={40} /> */}
