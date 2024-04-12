@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Map, { NavigationControl, GeolocateControl, Marker } from "react-map-gl";
 import { useState } from "react";
@@ -11,6 +12,7 @@ export default function Bikemap() {
   console.log("viewport", getViewport());
   const [viewport, setViewport] = useState(getViewport());
 
+  //   DEBOUNCERFUNCTION mit Timeout, damit abgewartet wird bis viewportchange abgeschlossen ist
   // useEffect(() => {
   //   function getViewport() {
   //     const viewPort = [window.innerWidth, window.innerHeight];

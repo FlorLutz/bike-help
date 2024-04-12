@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faMap, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   return (
@@ -9,17 +11,17 @@ export default function Footer() {
           {/* styling not yet working, the whole field should be clickable */}
           <Link href="/" className="width-1/3 block">
             <li>
-              <i className="fa-solid fa-user"></i>
+              <FontAwesomeIcon icon={faUser} />
             </li>
           </Link>
           <li>
             <Link href="/">
-              <i className="fa-solid fa-map"></i>
+              <FontAwesomeIcon icon={faMap} />
             </Link>
           </li>
           <li>
             <Link href="/">
-              <i className="fa-solid fa-plus"></i>
+              <FontAwesomeIcon icon={faPlus} />
             </Link>
           </li>
         </ul>

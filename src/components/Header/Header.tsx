@@ -1,5 +1,9 @@
+"use client";
+
 import React from "react";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBicycle, faBars } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false); // initiate isNavOpen state with false
@@ -7,15 +11,17 @@ export default function Header() {
   return (
     <section className="bg-lime-200 flex place-content-between text-2xl py-2">
       <div>
-        <i className="fa-solid fa-bicycle mx-4"></i> Bike Help
+        <FontAwesomeIcon icon={faBicycle} className="mx-4"></FontAwesomeIcon>{" "}
+        Bike Help
       </div>
       <div className="flex items-center justify-between">
         <nav>
           <section className="MOBILE-MENU flex lg:hidden">
-            <div
-              className="fa-solid fa-bars mr-4"
+            <FontAwesomeIcon
+              icon={faBars}
+              className="mr-4"
               onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
-            ></div>
+            ></FontAwesomeIcon>
 
             <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
               {" "}
