@@ -6,6 +6,7 @@ import MarkerPOI from "../MarkerPOI/MarkerPOI";
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
 export default function Bikemap() {
   const { data, error, isLoading } = useSWR("/api/pointsofinterest", fetcher);
   const [viewport, setViewport] = useState([]);
@@ -40,7 +41,7 @@ export default function Bikemap() {
 
   return (
     <>
-      {/* {isLoading && <p>Waiting for data</p>} */}
+      {isLoading && <p>Waiting for data</p>}
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}
@@ -55,12 +56,24 @@ export default function Bikemap() {
         <MarkerPOI
           latitude={52.502}
           longitude={13.411}
-          title="Rückenwind"
-          description="Selbsthilfe"
-          adress="Lenaustr. 3, Berlin"
-          openingHours="Mo-Fr, 10-18"
-          url="https://rueckenwind.berlin/"
+          title="Spiced TEST POI"
+          description="Academy"
+          adress="Ritterstr., Kreuzberg"
+          openingHours="Mo-Fr, 9-18"
+          url="https://www.spiced-academy.com/"
         />
+        {data.map((poi) => (
+          <MarkerPOI
+            key={poi.id}
+            latitude={poi.latitude}
+            longitude={poi.longitude}
+            title={poi.title}
+            description={poi.description}
+            adress={poi.adress}
+            openingHours={poi.openingHours}
+            url={poi.url}
+          />
+        ))}
         <NavigationControl />
         <GeolocateControl />
       </Map>
