@@ -8,7 +8,23 @@ import useSWR from "swr";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Bikemap() {
-  const { data, error, isLoading } = useSWR("/api/pointsofinterest", fetcher);
+  const {
+    data: poiData,
+    error,
+    isLoading,
+  } = useSWR("/api/pointsofinterest", fetcher);
+  //conditional showing of additional information on click
+  const [showAdditionalInfo, setShowAdditionalInfo] = useState();
+  function handleAdditionalInfo(poiId) {
+    console.log("poiId", poiId);
+    console.log("showAdditionalInfo", showAdditionalInfo);
+    if (showAdditionalInfo === poiId) {
+      setShowAdditionalInfo();
+    } else {
+      setShowAdditionalInfo(poiId);
+    }
+  }
+  //viewport adjustment to windowsize
   const [viewport, setViewport] = useState([]);
   function getViewport() {
     if (typeof window !== "undefined") {
@@ -19,10 +35,10 @@ export default function Bikemap() {
   useEffect(() => {
     getViewport();
   }, []);
-  if (!data) {
+  if (!poiData) {
     return;
   }
-  console.log(data);
+  console.log(poiData);
   //   console.log("viewport", getViewport());
 
   //API-REQUEST FOR POI-MARKERS:
@@ -54,6 +70,7 @@ export default function Bikemap() {
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         <MarkerPOI
+          id="blabliblub"
           latitude={52.502}
           longitude={13.411}
           title="Spiced TEST POI"
@@ -61,10 +78,13 @@ export default function Bikemap() {
           adress="Ritterstr., Kreuzberg"
           openingHours="Mo-Fr, 9-18"
           url="https://www.spiced-academy.com/"
+          handleAdditionalInfo={handleAdditionalInfo}
+          showAdditionalInfo={showAdditionalInfo}
         />
-        {data.map((poi) => (
+        {poiData.map((poi) => (
           <MarkerPOI
-            key={poi.id}
+            key={poi._id}
+            id={poi._id}
             latitude={poi.latitude}
             longitude={poi.longitude}
             title={poi.title}
@@ -72,6 +92,8 @@ export default function Bikemap() {
             adress={poi.adress}
             openingHours={poi.openingHours}
             url={poi.url}
+            handleAdditionalInfo={handleAdditionalInfo}
+            showAdditionalInfo={showAdditionalInfo}
           />
         ))}
         <NavigationControl />
