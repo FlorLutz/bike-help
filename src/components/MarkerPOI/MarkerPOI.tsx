@@ -5,43 +5,48 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faShop } from "@fortawesome/free-solid-svg-icons";
 
 interface MarkerPOIProps {
+  id: string;
   longitude: number;
   latitude: number;
   title: string;
   description: string;
+  adress: string;
   openingHours: string;
   url: string;
+  handleAdditionalInfo: Function;
+  showAdditionalInfo: string;
 }
 
 export default function MarkerPOI({
+  id,
   longitude,
   latitude,
   title,
   description,
+  adress,
   openingHours,
   url,
+  handleAdditionalInfo,
+  showAdditionalInfo,
 }: MarkerPOIProps) {
   return (
     <Marker longitude={longitude} latitude={latitude} anchor="bottom">
-      {/* <Image src={locationMarker} alt="location" width={40} height={40} /> */}
-      {/* {isShowDetails && (
-        <section>
+      {showAdditionalInfo === id && (
+        <section className="bg-white z-10 p-2 rounded">
           <h1>Point of interest</h1>
           <h2>{title}</h2>
           <p>{description}</p>
+          <p>{adress}</p>
           <p>{openingHours}</p>
           <Link href={url}>Website</Link>
         </section>
-      )} */}
-      <section className="flex flex-col items-center">
+      )}
+      <section
+        onClick={() => handleAdditionalInfo(id)}
+        className="flex flex-col items-center z-0"
+      >
         <strong>POI</strong>
-        <FontAwesomeIcon
-          icon={faShop}
-          // onClick={() => {
-          //   handleShowDetails;
-          // }}
-          className="text-2xl"
-        ></FontAwesomeIcon>
+        <FontAwesomeIcon icon={faShop} className="text-2xl"></FontAwesomeIcon>
       </section>
     </Marker>
   );
