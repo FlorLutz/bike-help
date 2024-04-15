@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import Map, { NavigationControl, GeolocateControl, Marker } from "react-map-gl";
+import Map, { NavigationControl, GeolocateControl } from "react-map-gl";
 import { useState } from "react";
 import MarkerPOI from "../MarkerPOI/MarkerPOI";
 import useSWR from "swr";
