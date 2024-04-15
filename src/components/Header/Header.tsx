@@ -4,16 +4,17 @@ import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBicycle, faBars } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false); // initiate isNavOpen state with false
 
   return (
     <section className="bg-lime-200 flex place-content-between text-2xl py-2">
-      <div>
+      <Link href="/">
         <FontAwesomeIcon icon={faBicycle} className="mx-4"></FontAwesomeIcon>{" "}
         Bike Help
-      </div>
+      </Link>
       <div className="flex items-center justify-between">
         <nav>
           <section className="MOBILE-MENU flex lg:hidden">
@@ -44,13 +45,13 @@ export default function Header() {
               </div>
               <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
                 <li className="border-b border-gray-400 my-8 uppercase">
-                  <a href="/help">help</a>
+                  <Link href="/help">help</Link>
                 </li>
                 <li className="border-b border-gray-400 my-8 uppercase">
-                  <a href="/about">about</a>
+                  <Link href="/about">about</Link>
                 </li>
                 <li className="border-b border-gray-400 my-8 uppercase">
-                  <a href="/imprint">imprint</a>
+                  <Link href="/imprint">imprint</Link>
                 </li>
               </ul>
             </div>
@@ -58,13 +59,13 @@ export default function Header() {
 
           <ul className="DESKTOP-MENU hidden space-x-8 lg:flex mr-4">
             <li>
-              <a href="/help">help</a>
+              <Link href="/help">help</Link>
             </li>
             <li>
-              <a href="/about">about</a>
+              <Link href="/about">about</Link>
             </li>
             <li>
-              <a href="/imprint">imprint</a>
+              <Link href="/imprint">imprint</Link>
             </li>
           </ul>
         </nav>

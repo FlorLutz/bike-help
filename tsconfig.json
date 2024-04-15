@@ -26,8 +26,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "db/connect.js",
-    "src/components/Bikemap/Bikemap.jsx"
+    "db/connect.ts",
+    "src/components/Bikemap/Bikemap.jsx",
+    "src/app/profile/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
