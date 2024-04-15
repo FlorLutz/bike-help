@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import AuthProvider from "./context/AuthProvider";
 import "./globals.css";
-// import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Bike Help",
@@ -9,16 +9,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params: { session, ...params },
 }: Readonly<{
   children: React.ReactNode;
-  params: any;
 }>) {
   return (
     <html lang="en">
       <body>
-        {children}
-        {/* <SessionProvider session={session}>{children}</SessionProvider> */}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

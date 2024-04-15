@@ -20,7 +20,7 @@ export default function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="/newRequest">
+            <Link href="/newrequest">
               <FontAwesomeIcon icon={faPlus} />
             </Link>
           </li>

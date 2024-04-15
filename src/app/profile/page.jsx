@@ -1,31 +1,27 @@
 import React from "react";
 import Link from "next/link";
 import Layout from "@/components/Layout/Layout";
+import { options } from "../api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export default async function ProfilePage() {
+  const session = await getServerSession(options);
 
-export default function ProfilePage() {
-  // const {
-  //   data: userData,
-  //   error,
-  //   isLoading,
-  // } = useSWR("/api/auth/text", fetcher);
-
-  // if (!userData) {
-  //   return;
-  // }
-
-  // console.log("userData", userData);
+  console.log(session);
 
   return (
     <Layout>
       <h1>Profile</h1>
-      <h2>Log-in</h2>
-      <Link href="/">use Google</Link>
-      {/* link to next auth */}
-      <p>Not a user yet?</p>
-      <Link href="/">Register here</Link>
-      {/* link to next auth */}
+      {session ? (
+        <>
+          <p>
+            You are signed in as <strong>{session?.user.name}</strong>.
+          </p>
+          <Link href="api/auth/signout">Sign-out here</Link>
+        </>
+      ) : (
+        <Link href="api/auth/signin">Please Sign-in here</Link>
+      )}
     </Layout>
   );
 }
