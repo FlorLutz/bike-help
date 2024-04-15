@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faShop } from "@fortawesome/free-solid-svg-icons";
 
 interface MarkerPOIProps {
+  id: string;
   longitude: number;
   latitude: number;
   title: string;
