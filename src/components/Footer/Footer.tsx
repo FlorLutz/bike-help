@@ -9,7 +9,7 @@ export default function Footer() {
       <nav>
         <ul className="flex place-content-evenly text-2xl">
           {/* styling not yet working, the whole field should be clickable */}
-          <Link href="/" className="width-1/3 block">
+          <Link href="/profile" className="width-1/3 block">
             <li>
               <FontAwesomeIcon icon={faUser} />
             </li>
@@ -20,7 +20,7 @@ export default function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="/">
+            <Link href="/newRequest">
               <FontAwesomeIcon icon={faPlus} />
             </Link>
           </li>
