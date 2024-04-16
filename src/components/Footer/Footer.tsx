@@ -1,7 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faMap, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faMap,
+  faPlus,
+  faScrewdriverWrench,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   return (
@@ -21,6 +26,7 @@ export default function Footer() {
           </li>
           <li>
             <Link href="/newrequest">
+              <FontAwesomeIcon icon={faScrewdriverWrench} />
               <FontAwesomeIcon icon={faPlus} />
             </Link>
           </li>

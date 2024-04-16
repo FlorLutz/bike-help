@@ -16,6 +16,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/mapbox-gl": "^3.1.0",
     "mapbox-gl": "^3.3.0",
+    "@auth/mongodb-adapter": "^2.6.0",
+    "mongodb": "^6.5.0",
     "mongoose": "^8.3.1",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
