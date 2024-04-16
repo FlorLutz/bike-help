@@ -16,8 +16,8 @@ export default function Bikemap() {
   //conditional showing of additional information on click
   const [showAdditionalInfo, setShowAdditionalInfo] = useState();
   function handleAdditionalInfo(poiId) {
-    console.log("poiId", poiId);
-    console.log("showAdditionalInfo", showAdditionalInfo);
+    // console.log("poiId", poiId);
+    // console.log("showAdditionalInfo", showAdditionalInfo);
     if (showAdditionalInfo === poiId) {
       setShowAdditionalInfo();
     } else {
@@ -38,7 +38,7 @@ export default function Bikemap() {
   if (!poiData) {
     return;
   }
-  console.log(poiData);
+  // console.log(poiData);
   //   console.log("viewport", getViewport());
 
   //API-REQUEST FOR POI-MARKERS:

@@ -28,7 +28,8 @@
     ".next/types/**/*.ts",
     "db/connect.ts",
     "src/components/Bikemap/Bikemap.jsx",
-    "src/app/profile/page.jsx"
+    "src/app/profile/page.jsx",
+    "src/components/RequestForm/RequestForm.jsx"
   ],
   "exclude": ["node_modules"]
 }

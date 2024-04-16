@@ -4,7 +4,7 @@ import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
 import { useRouter } from "next/navigation";
 
-export default function RequestForm() {
+export default function RequestForm({ userId }: { userId: string }) {
   const router = useRouter();
 
   interface IMarker {
@@ -24,20 +24,15 @@ export default function RequestForm() {
     let data = Object.fromEntries(formData);
     const { longitude, latitude } = marker;
     const date = new Date();
-    console.log("formdata", {
-      ...data,
-      isOpen: true,
-      date,
-      longitude,
-      latitude,
-    });
     const helpRequestData = {
       ...data,
       isOpen: true,
       date: date,
       longitude,
       latitude,
+      userId: userId,
     };
+    console.log("helpRequestData", helpRequestData);
     const response = await fetch("api/requests", {
       method: "POST",
       headers: {
@@ -47,7 +42,9 @@ export default function RequestForm() {
     });
     if (response.ok) {
       console.log("response ok");
-
+      alert(
+        "You have successfully created a new request. You can view, edit and delete it on this page."
+      );
       router.push("/"); // eventually push back to new request site or mutate
     }
   }
@@ -63,11 +60,6 @@ export default function RequestForm() {
     setMarker({ longitude: lng, latitude: lat });
   }
 
-  //   function handleLngLatRead() {
-  //     console.log("marker in handleLngLatRead", marker);
-  //     return marker;
-  //   }
-
   function handleDragEnd(event: MarkerDragEvent) {
     console.log("dragendevent", event.lngLat);
     const { lng, lat } = event.lngLat;
@@ -75,16 +67,7 @@ export default function RequestForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
-      {/* <label htmlFor="problem">What part is broken/not working:*</label>
-      <input
-        type="text"
-        name="problem"
-        id="problem"
-        required
-        maxLength={30}
-        placeholder="e.g. flat tire"
-      ></input> */}
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <label htmlFor="problem">What part is broken/not working:*</label>
       <input
         type="text"
@@ -93,7 +76,7 @@ export default function RequestForm() {
         list="problemlist"
         required
         maxLength={40}
-        placeholder="type problem or view suggestions👇"
+        placeholder="type in problem or view suggestions👇"
       />
       <datalist id="problemlist">
         <option>flat tire</option>
@@ -132,7 +115,12 @@ export default function RequestForm() {
         maxLength={40}
         placeholder='e.g. tire levers, patch and glue or a new 28" race tube'
       />
-      <button type="submit">Request help</button>
+      <button
+        type="submit"
+        className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
+      >
+        Request help
+      </button>
     </form>
   );
 }
