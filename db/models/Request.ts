@@ -8,6 +8,8 @@ const RequestSchema = new Schema({
   tools: { type: String, required: false },
   date: { type: Date, required: true },
   isOpen: { type: Boolean, required: true },
+  longitude: { type: Number, required: true },
+  latitude: { type: Number, required: true },
 });
 const Request =
   mongoose.models.Request || mongoose.model("Request", RequestSchema);

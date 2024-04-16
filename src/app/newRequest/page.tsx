@@ -5,10 +5,9 @@ import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import RequestForm from "@/components/RequestForm/RequestForm";
 
-export default async function ProfilePage() {
+export default async function RequestPage() {
   const session = await getServerSession(options);
 
-  console.log(session);
   return (
     <Layout>
       <h1>New Request</h1>

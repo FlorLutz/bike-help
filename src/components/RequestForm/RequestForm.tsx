@@ -2,21 +2,24 @@
 import React, { useState } from "react";
 import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
+import { useRouter } from "next/router";
 
 export default function RequestForm() {
+  // const router = useRouter();
+
   interface IMarker {
     longitude: number | undefined;
     latitude: number | undefined;
   }
 
-  function handleSubmit(event: any) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
     if (!marker.longitude) {
       alert("Please set a location on the map first");
       return;
     }
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+    let data = Object.fromEntries(formData);
     const { longitude, latitude } = marker;
     const date = new Date();
     console.log("formdata", {
@@ -26,6 +29,23 @@ export default function RequestForm() {
       longitude,
       latitude,
     });
+    data = {
+      ...data,
+      isOpen: true,
+      date: date,
+      longitude,
+      latitude,
+    };
+    const response = await fetch("api/requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    // if (response.ok) {
+    //   router.push("/");
+    // }
   }
 
   const [marker, setMarker]: [IMarker | any, Function] = useState({});
