@@ -13,7 +13,14 @@ export default function RequestForm() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     const { longitude, latitude } = marker;
-    console.log("formdata", { ...data, longitude, latitude });
+    const date = new Date();
+    console.log("formdata", {
+      ...data,
+      isOpen: true,
+      date,
+      longitude,
+      latitude,
+    });
   }
 
   const [marker, setMarker] = useState({});
