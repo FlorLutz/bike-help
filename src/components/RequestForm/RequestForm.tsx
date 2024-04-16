@@ -1,9 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
-import type { MarkerDragEvent, lngLat } from "react-map-gl";
+import type { MarkerDragEvent } from "react-map-gl";
 
 export default function RequestForm() {
+  interface IMarker {
+    longitude: number | undefined;
+    latitude: number | undefined;
+  }
+
   function handleSubmit(event: any) {
     event.preventDefault();
     if (!marker.longitude) {
@@ -23,9 +28,13 @@ export default function RequestForm() {
     });
   }
 
-  const [marker, setMarker] = useState({});
+  const [marker, setMarker]: [IMarker | any, Function] = useState({});
 
-  function handleMapClick({ lngLat }) {
+  interface IlngLat {
+    lngLat: { lng: number; lat: number };
+  }
+
+  function handleMapClick({ lngLat }: IlngLat) {
     const { lng, lat } = lngLat;
     setMarker({ longitude: lng, latitude: lat });
   }
