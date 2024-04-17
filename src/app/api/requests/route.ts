@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../../db/connect";
-import Request from "../../../../db/models/Request";
+import Helprequest from "../../../../db/models/Helprequest";
 import User from "../../../../db/models/User";
 
 export async function POST(request: NextRequest, response: NextResponse) {
@@ -34,6 +34,18 @@ export async function POST(request: NextRequest, response: NextResponse) {
         status: 400,
       }
     );
+  }
+}
+
+export async function GET(request: NextRequest) {
+  await dbConnect();
+  const helprequests = await Helprequest.find();
+  if (helprequests) {
+    return new NextResponse(JSON.stringify(helprequests), { status: 200 });
+  } else {
+    return new NextResponse(JSON.stringify({ message: "Bad request" }), {
+      status: 400,
+    });
   }
 }
 

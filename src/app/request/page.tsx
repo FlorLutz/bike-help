@@ -5,9 +5,19 @@ import { getServerSession } from "next-auth/next";
 import RequestForm from "@/components/RequestForm/RequestForm";
 import LinkButton from "@/components/LinkButton/LinkButton";
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
 export default async function RequestPage() {
-  const session = await getServerSession(options);
+  const session: any = await getServerSession(options);
   const userId = session?.user.userId;
+
+  // make a GET request to the faDatabase, get the user data an look in the requestarray for isOpen=true
+  const {
+    data: openRequest,
+    error,
+    isLoading,
+  } = useSWR("/api/requests", fetcher);
+
   return (
     <Layout>
       <main className="m-4">

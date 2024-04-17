@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Map, { NavigationControl, GeolocateControl } from "react-map-gl";
 import { useState } from "react";
 import MarkerPOI from "../MarkerPOI/MarkerPOI";
+import MarkerRequest from "../MarkerRequest/MarkerRequest";
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -10,9 +11,16 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 export default function Bikemap() {
   const {
     data: poiData,
-    error,
-    isLoading,
+    error: poiError,
+    isLoading: poiIsLoading,
   } = useSWR("/api/pointsofinterest", fetcher);
+
+  const {
+    data: openRequestsData,
+    error: openRequestsError,
+    isLoading: openRequestsIsLoading,
+  } = useSWR("/api/requests", fetcher);
+
   //conditional showing of additional information on click
   const [showAdditionalInfo, setShowAdditionalInfo] = useState();
   function handleAdditionalInfo(poiId) {
@@ -57,7 +65,8 @@ export default function Bikemap() {
 
   return (
     <>
-      {isLoading && <p>Waiting for data</p>}
+      {poiIsLoading && <p>Waiting for POIdata</p>}
+      {openRequestsIsLoading && <p>Waiting for data</p>}
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}
@@ -81,6 +90,21 @@ export default function Bikemap() {
           handleAdditionalInfo={handleAdditionalInfo}
           showAdditionalInfo={showAdditionalInfo}
         />
+        {openRequestsData.map((openRequest) => (
+          <MarkerRequest
+            key={openRequest._id}
+            id={openRequest._id}
+            latitude={openRequest.latitude}
+            longitude={openRequest.longitude}
+            problem={openRequest.problem}
+            description={openRequest.description}
+            locationDetails={openRequest.locationDetails}
+            tools={openRequest.tools}
+            date={openRequest.date}
+            // handleAdditionalInfo={handleAdditionalInfo}
+            // showAdditionalInfo={showAdditionalInfo}
+          />
+        ))}
         {poiData.map((poi) => (
           <MarkerPOI
             key={poi._id}
