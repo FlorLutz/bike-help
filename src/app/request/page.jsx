@@ -16,7 +16,7 @@ export default async function RequestPage() {
   async function getOpenRequestForUser(userId) {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/requests/${userId}`
+        `http://localhost:3000/api/requests/byuser/${userId}`
       );
       const openRequestData = await response.json();
       return openRequestData;

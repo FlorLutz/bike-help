@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faMap,
-  faPlus,
   faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
@@ -39,10 +38,6 @@ export default function Footer() {
             <Link href="/request">
               <FontAwesomeIcon
                 icon={faScrewdriverWrench}
-                className={`${pathName === "/request" && "text-white"}`}
-              />
-              <FontAwesomeIcon
-                icon={faPlus}
                 className={`${pathName === "/request" && "text-white"}`}
               />
             </Link>

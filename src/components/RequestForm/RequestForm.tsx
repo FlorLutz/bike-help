@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
 import { useRouter } from "next/navigation";
+import { mutate } from "swr";
 
 export default function RequestForm({ userId }: { userId: string }) {
   const router = useRouter();
@@ -45,7 +46,11 @@ export default function RequestForm({ userId }: { userId: string }) {
       alert(
         "You have successfully created a new request. You can view, edit and delete it on this page."
       );
-      router.push("/"); // eventually push back to new request site or mutate
+      console.log("MUTATION");
+
+      mutate();
+
+      // router.push("/"); // eventually push back to new request site or mutate
     }
   }
 

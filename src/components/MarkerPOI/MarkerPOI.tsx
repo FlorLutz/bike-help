@@ -43,7 +43,7 @@ export default function MarkerPOI({
       )}
       <section
         onClick={() => handleAdditionalInfo(id)}
-        className="flex flex-col items-center z-0"
+        className="flex flex-col items-center"
       >
         <strong>POI</strong>
         <FontAwesomeIcon icon={faShop} className="text-2xl"></FontAwesomeIcon>

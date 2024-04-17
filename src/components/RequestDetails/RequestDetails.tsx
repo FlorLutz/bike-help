@@ -18,6 +18,26 @@ export default function RequestDetails(requestData) {
   console.log("REQUEST IN REG DET", requestData.requestData);
   const data = requestData.requestData;
 
+  async function handleDelete(id, userId) {
+    console.log("deleting");
+
+    const response = await fetch(`api/requests/byrequestid/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userId),
+    });
+    if (response.ok) {
+      console.log("response ok");
+      alert(
+        "You have successfully deleted the request. You can now create a new one on this page."
+      );
+    }
+  }
+  function handleEdit(id) {}
+  function handleResolved(id) {}
+
   return (
     <section>
       <div className="w-[400px] px-4 flex gap-4 border-4 rounded border-emerald-950">
@@ -88,6 +108,7 @@ export default function RequestDetails(requestData) {
       <div className="mt-4 flex place-content-between w-[400px]">
         <button
           type="button"
+          onClick={() => handleDelete(data._id, data.userId)}
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
