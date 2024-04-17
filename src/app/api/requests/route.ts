@@ -8,7 +8,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   try {
     const requestData = await request.json();
     console.log("REQUEST", requestData);
-    const helpRequest = await Request.create(requestData);
+    const helpRequest = await Helprequest.create(requestData);
     console.log("helpRequest", helpRequest);
 
     await User.findByIdAndUpdate(

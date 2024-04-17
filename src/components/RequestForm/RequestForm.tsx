@@ -67,60 +67,64 @@ export default function RequestForm({ userId }: { userId: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-      <label htmlFor="problem">What part is broken/not working:*</label>
-      <input
-        type="text"
-        name="problem"
-        id="problem"
-        list="problemlist"
-        required
-        maxLength={40}
-        placeholder="type in problem or view suggestions👇"
-      />
-      <datalist id="problemlist">
-        <option>flat tire</option>
-        <option>torn bowden wire</option>
-        <option>twisted handlebars</option>
-        <option>breaks stopped working</option>
-        <option>shifters stopped working</option>
-      </datalist>
-      <InteractiveBikeMap
-        handleMapClick={handleMapClick}
-        handleDragEnd={handleDragEnd}
-        marker={marker}
-      />
-      <label htmlFor="locationdetails">location details (optional):</label>
-      <input
-        type="text"
-        name="locationdetails"
-        id="locationdetails"
-        maxLength={40}
-        placeholder="e.g. I stand next to the big tree, opposite from a bank"
-      />
-      <label htmlFor="description">additional description (optional):</label>
-      <textarea
-        name="description"
-        id="description"
-        rows={3}
-        cols={20}
-        maxLength={100}
-        placeholder='e.g. got a 28" bike, front tire is down, probably a little hole in the tube'
-      />
-      <label htmlFor="tools">tools needed (optional):</label>
-      <input
-        type="text"
-        name="tools"
-        id="tools"
-        maxLength={40}
-        placeholder='e.g. tire levers, patch and glue or a new 28" race tube'
-      />
-      <button
-        type="submit"
-        className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
-      >
-        Request help
-      </button>
-    </form>
+    <section>
+      <h1 className="font-bold text-xl mb-6">New Request</h1>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <label htmlFor="problem">What part is broken/not working:*</label>
+        <input
+          type="text"
+          name="problem"
+          id="problem"
+          list="problemlist"
+          required
+          maxLength={40}
+          placeholder="type in problem or view suggestions👇"
+        />
+        <datalist id="problemlist">
+          <option>flat tire</option>
+          <option>torn bowden wire</option>
+          <option>twisted handlebars</option>
+          <option>breaks stopped working</option>
+          <option>shifters stopped working</option>
+        </datalist>
+        <InteractiveBikeMap
+          handleMapClick={handleMapClick}
+          handleDragEnd={handleDragEnd}
+          marker={marker}
+        />
+        <label htmlFor="locationdetails">location details (optional):</label>
+        <input
+          type="text"
+          name="locationdetails"
+          id="locationdetails"
+          maxLength={40}
+          placeholder="e.g. I stand next to the big tree, opposite from a bank"
+        />
+        <label htmlFor="description">additional description (optional):</label>
+        <textarea
+          name="description"
+          id="description"
+          rows={3}
+          cols={20}
+          maxLength={100}
+          placeholder='e.g. got a 28" bike, front tire is down, probably a little hole in the tube'
+        />
+        <label htmlFor="tools">tools needed (optional):</label>
+        <input
+          type="text"
+          name="tools"
+          id="tools"
+          maxLength={40}
+          placeholder='e.g. tire levers, patch and glue or a new 28" race tube'
+        />
+        <button
+          type="submit"
+          className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
+        >
+          Request help
+        </button>
+      </form>
+    </section>
   );
 }

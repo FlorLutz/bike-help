@@ -6,6 +6,7 @@ const HelprequestSchema = new Schema({
   description: { type: String, required: false },
   locationdetails: { type: String, required: false },
   tools: { type: String, required: false },
+  userId: { type: String, required: true },
   date: { type: Date, required: true },
   isOpen: { type: Boolean, required: true },
   longitude: { type: Number, required: true },

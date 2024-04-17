@@ -13,7 +13,6 @@ import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const pathName = usePathname();
-  console.log(pathName);
 
   return (
     <footer className="bg-emerald-500 py-2 fixed w-full bottom-0">
@@ -37,7 +36,7 @@ export default function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="/newrequest">
+            <Link href="/request">
               <FontAwesomeIcon
                 icon={faScrewdriverWrench}
                 className={`${pathName === "/request" && "text-white"}`}
