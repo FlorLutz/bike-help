@@ -42,10 +42,7 @@ export default async function RequestPage() {
     <Layout>
       <main className="m-4">
         {session && openRequestData && (
-          <>
-            <p>You are logged in and have an open request!</p>
-            <RequestDetails requestData={openRequestData[0]} />
-          </>
+          <RequestDetails requestData={openRequestData[0]} />
         )}
         {session && !openRequestData && <RequestForm userId={userId} />}
         {!session && (
