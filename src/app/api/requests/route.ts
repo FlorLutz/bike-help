@@ -39,7 +39,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 
 export async function GET(request: NextRequest) {
   await dbConnect();
-  const helprequests = await Helprequest.find();
+  const helprequests = await Helprequest.find({ isOpen: true });
   if (helprequests) {
     return new NextResponse(JSON.stringify(helprequests), { status: 200 });
   } else {

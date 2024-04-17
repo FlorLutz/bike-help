@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,8 +9,12 @@ import {
   faPlus,
   faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathName = usePathname();
+  console.log(pathName);
+
   return (
     <footer className="bg-emerald-500 py-2 fixed w-full bottom-0">
       <nav>
@@ -16,18 +22,30 @@ export default function Footer() {
           {/* styling not yet working, the whole field should be clickable */}
           <Link href="/profile" className="width-1/3 block">
             <li>
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon
+                icon={faUser}
+                className={`${pathName === "/profile" && "text-white"}`}
+              />
             </li>
           </Link>
           <li>
             <Link href="/">
-              <FontAwesomeIcon icon={faMap} />
+              <FontAwesomeIcon
+                icon={faMap}
+                className={`${pathName === "/" && "text-white"}`}
+              />
             </Link>
           </li>
           <li>
             <Link href="/newrequest">
-              <FontAwesomeIcon icon={faScrewdriverWrench} />
-              <FontAwesomeIcon icon={faPlus} />
+              <FontAwesomeIcon
+                icon={faScrewdriverWrench}
+                className={`${pathName === "/request" && "text-white"}`}
+              />
+              <FontAwesomeIcon
+                icon={faPlus}
+                className={`${pathName === "/request" && "text-white"}`}
+              />
             </Link>
           </li>
         </ul>

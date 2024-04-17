@@ -28,13 +28,15 @@ export default function MarkerRequest({
 }: //   handleAdditionalInfo,
 //   showAdditionalInfo,
 IMarkerRequestProps) {
+  console.log(date);
+
   return (
     <Marker longitude={longitude} latitude={latitude} anchor="bottom">
       {/* {showAdditionalInfo === id && ( */}
       <section className="bg-white z-10 p-2 rounded">
         <h1>Help needed</h1>
         <h2>{problem}</h2>
-        <p>{`created: ${date.getHours}:${date.getMinutes}`}</p>
+        {/* <p>{`created: ${date.getHours()}:${date.getMinutes()}`}</p> */}
         <p>{description}</p>
         <p>{locationDetails}</p>
         <p>{tools}</p>

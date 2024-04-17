@@ -46,6 +46,10 @@ export default function Bikemap() {
   if (!poiData) {
     return;
   }
+
+  if (!openRequestsData || !poiData) {
+    return;
+  }
   // console.log(poiData);
   //   console.log("viewport", getViewport());
 
