@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
-
 import { useRouter } from "next/navigation";
 
 export default function RequestForm({
@@ -48,7 +47,7 @@ export default function RequestForm({
         "You have successfully created a new request. You can view, edit and delete it on this page."
       );
 
-      router.refresh(); // eventually push back to new request site or mutate
+      router.refresh();
     }
   }
 

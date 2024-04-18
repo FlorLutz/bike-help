@@ -1,53 +1,42 @@
 import React from "react";
 import { options } from "../api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
-// import { useSession } from "next-auth/react";
 import Layout from "@/components/Layout/Layout";
 import RequestForm from "@/components/RequestForm/RequestForm";
 import LinkButton from "@/components/LinkButton/LinkButton";
-import RequestDetails from "@/components/RequestDetails/RequestDetails";
+import dbConnect from "../../../db/connect";
+import { redirect } from "next/navigation";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import Helprequest from "../../../db/models/Helprequest";
 
 export default async function RequestPage() {
   const session = await getServerSession(options);
   const userId = session.user.userId;
 
-  async function getOpenRequestForUser(userId) {
+  let openRequestData = [];
+
+  if (session) {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/requests/byuser/${userId}`
-      );
-      const openRequestData = await response.json();
-      return openRequestData;
+      await dbConnect();
+
+      openRequestData = await Helprequest.find({
+        isOpen: true,
+        userId: userId,
+      });
+      openRequestData[0]._id && redirect(`/request/${openRequestData[0]._id}`);
     } catch (error) {
       console.error(error);
     }
   }
 
-  let openRequestData = [];
-  if (session) {
-    openRequestData = await getOpenRequestForUser(userId);
-  }
   console.log("openRequestData", openRequestData);
-  // make a GET request to the Database, get the user data an look in the requestarray for isOpen=true
-  // const {
-  //   data: openHelpRequest,
-  //   error,
-  //   isLoading,
-  // } = useSWR("/api/requests", fetcher);
-  // console.log("openHelpRequest", openHelpRequest);
 
   return (
     <Layout>
       <main className="m-4">
-        {session && openRequestData.length > 0 && (
-          <RequestDetails requestData={openRequestData[0]} />
-        )}
-        {session && openRequestData.length === 0 && (
+        {session ? (
           <RequestForm userId={userId} />
-        )}
-        {!session && (
+        ) : (
           <section>
             <p className="mb-4">You are not signed in.</p>
             <LinkButton

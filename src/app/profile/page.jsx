@@ -8,12 +8,7 @@ import ProfileDetails from "@/components/ProfileDetails/ProfileDetails";
 
 export default async function ProfilePage() {
   const session = await getServerSession(options);
-  console.log(session);
 
-  if (session) {
-    //find user by email in database, if it is there return id of user in db
-    //if it isn't there, create an entry and return id of user in db
-  }
   return (
     <Layout>
       <main className="m-4">
