@@ -6,7 +6,7 @@ interface ILinkButtonProps {
   text: string;
 }
 
-export default function LinkButton({ href, text }): ILinkButtonProps {
+export default function LinkButton({ href, text }: ILinkButtonProps) {
   return (
     <Link
       href={href}

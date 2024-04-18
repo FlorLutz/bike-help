@@ -13,10 +13,14 @@ import InteractiveMap, {
   GeolocateControl,
   Marker,
 } from "react-map-gl";
+import { useState } from "react";
+import RequestForm from "../RequestForm/RequestForm";
 
 export default function RequestDetails(requestData: any) {
   console.log("REQUEST IN REG DET", requestData.requestData);
-  const data = requestData.requestData;
+  const requestDetailsData = requestData.requestData;
+
+  const [editMode, setEditMode] = useState(false);
 
   async function handleDelete(id: string, userId: string) {
     console.log("deleting");
@@ -53,9 +57,18 @@ export default function RequestDetails(requestData: any) {
     }
   }
 
-  async function handleEdit(id: string) {}
+  async function handleEditRender(data) {
+    setEditMode(true);
+    //render the ReuestForm
+  }
 
-  return (
+  return editMode ? (
+    <RequestForm
+      userId={requestDetailsData.userId}
+      editMode={true}
+      existingRequestData={requestDetailsData}
+    />
+  ) : (
     <section>
       <div className="w-[400px] px-4 flex gap-4 border-4 rounded border-emerald-950">
         <FontAwesomeIcon
@@ -71,26 +84,26 @@ export default function RequestDetails(requestData: any) {
         Details for your open Request
       </h1>
       <p className="font-bold">What part is broken/not working:*</p>
-      <p>{data.problem}</p>
+      <p>{requestDetailsData.problem}</p>
 
-      {data.locationdetais && (
+      {requestDetailsData.locationdetais && (
         <>
           <p className="font-bold">location details (optional):</p>
-          <p>{data.locationdetails}</p>
+          <p>{requestDetailsData.locationdetails}</p>
         </>
       )}
 
-      {data.locationdetais && (
+      {requestDetailsData.locationdetais && (
         <>
           <p className="font-bold">additional description (optional):</p>
-          <p>{data.description}</p>
+          <p>{requestDetailsData.description}</p>
         </>
       )}
 
-      {data.locationdetais && (
+      {requestDetailsData.locationdetais && (
         <>
           <p className="font-bold">tools needed (optional):</p>
-          <p>{data.tools}</p>
+          <p>{requestDetailsData.tools}</p>
         </>
       )}
       <p className="font-bold">your location:</p>
@@ -99,16 +112,16 @@ export default function RequestDetails(requestData: any) {
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}
         initialViewState={{
-          latitude: data.latitude,
-          longitude: data.longitude,
+          latitude: requestDetailsData.latitude,
+          longitude: requestDetailsData.longitude,
           zoom: 16,
         }}
         style={{ width: 400, height: 400 }} // adjusts to screensize
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         <Marker
-          longitude={data.longitude}
-          latitude={data.latitude}
+          longitude={requestDetailsData.longitude}
+          latitude={requestDetailsData.latitude}
           anchor="bottom"
         >
           <div className="flex flex-col items-center">
@@ -125,6 +138,7 @@ export default function RequestDetails(requestData: any) {
       <div className="mt-4 flex place-content-between w-[400px]">
         <button
           type="button"
+          onClick={() => handleEditRender(requestDetailsData)}
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
@@ -132,7 +146,9 @@ export default function RequestDetails(requestData: any) {
         </button>
         <button
           type="button"
-          onClick={() => handleDelete(data._id, data.userId)}
+          onClick={() =>
+            handleDelete(requestDetailsData._id, requestDetailsData.userId)
+          }
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faTrash} className="mr-2" />
@@ -140,7 +156,7 @@ export default function RequestDetails(requestData: any) {
         </button>
         <button
           type="button"
-          onClick={() => handleResolved(data._id)}
+          onClick={() => handleResolved(requestDetailsData._id)}
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
