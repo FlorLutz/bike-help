@@ -25,6 +25,25 @@ export async function DELETE(request: NextRequest, { params }: any) {
   }
 }
 
+export async function PATCH(request: NextRequest, { params }: any) {
+  await dbConnect();
+  console.log("PARAMSSESSION", params);
+
+  try {
+    const helprequest = await Helprequest.findByIdAndUpdate(params.requestId, {
+      $set: { isOpen: false },
+    });
+    return new NextResponse(
+      JSON.stringify({ message: "helprequest updated" }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return new NextResponse(JSON.stringify({ error: "Bad request" }), {
+      status: 400,
+    });
+  }
+}
 // export async function GET(request: NextRequest, response: NextResponse) {
 //   await dbConnect();
 //   const pointsOfInterst = await PointOfInterest.find();

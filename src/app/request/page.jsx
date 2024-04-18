@@ -25,7 +25,7 @@ export default async function RequestPage() {
     }
   }
 
-  let openRequestData;
+  let openRequestData = [];
   if (session) {
     openRequestData = await getOpenRequestForUser(userId);
   }
@@ -41,10 +41,12 @@ export default async function RequestPage() {
   return (
     <Layout>
       <main className="m-4">
-        {session && openRequestData && (
+        {session && openRequestData.length > 0 && (
           <RequestDetails requestData={openRequestData[0]} />
         )}
-        {session && !openRequestData && <RequestForm userId={userId} />}
+        {session && openRequestData.length === 0 && (
+          <RequestForm userId={userId} />
+        )}
         {!session && (
           <section>
             <p className="mb-4">You are not signed in.</p>

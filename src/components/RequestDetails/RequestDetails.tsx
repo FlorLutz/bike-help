@@ -14,11 +14,11 @@ import InteractiveMap, {
   Marker,
 } from "react-map-gl";
 
-export default function RequestDetails(requestData) {
+export default function RequestDetails(requestData: any) {
   console.log("REQUEST IN REG DET", requestData.requestData);
   const data = requestData.requestData;
 
-  async function handleDelete(id, userId) {
+  async function handleDelete(id: string, userId: string) {
     console.log("deleting");
 
     const response = await fetch(`api/requests/byrequestid/${id}`, {
@@ -35,8 +35,25 @@ export default function RequestDetails(requestData) {
       );
     }
   }
-  function handleEdit(id) {}
-  function handleResolved(id) {}
+
+  async function handleResolved(id: string) {
+    console.log("resolving");
+
+    const response = await fetch(`api/requests/byrequestid/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      console.log("response ok");
+      alert(
+        "You have marked the request as resolved. It will now be shown in the request history in your profile page. You can create a new one on this page."
+      );
+    }
+  }
+
+  async function handleEdit(id: string) {}
 
   return (
     <section>
@@ -108,7 +125,6 @@ export default function RequestDetails(requestData) {
       <div className="mt-4 flex place-content-between w-[400px]">
         <button
           type="button"
-          onClick={() => handleDelete(data._id, data.userId)}
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
@@ -116,6 +132,7 @@ export default function RequestDetails(requestData) {
         </button>
         <button
           type="button"
+          onClick={() => handleDelete(data._id, data.userId)}
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faTrash} className="mr-2" />
@@ -123,6 +140,7 @@ export default function RequestDetails(requestData) {
         </button>
         <button
           type="button"
+          onClick={() => handleResolved(data._id)}
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
