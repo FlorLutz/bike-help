@@ -8,10 +8,12 @@ export default function RequestForm({
   userId,
   editMode,
   existingRequestData,
+  handleSaveEdit,
 }: {
   userId: string;
   editMode: boolean | undefined;
   existingRequestData: any;
+  handleSaveEdit: any;
 }) {
   //when creating a new request link it to the user too (by adding its id to the array of requests)
   const router = useRouter();
@@ -34,20 +36,43 @@ export default function RequestForm({
       userId: userId,
     };
     console.log("helpRequestData", helpRequestData);
-    const response = await fetch("api/requests", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(helpRequestData),
-    });
-    if (response.ok) {
-      console.log("response ok");
-      alert(
-        "You have successfully created a new request. You can view, edit and delete it on this page."
-      );
+    if (!editMode) {
+      const response = await fetch("api/requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(helpRequestData),
+      });
+      if (response.ok) {
+        console.log("response ok");
+        alert(
+          "You have successfully created a new request. You can view, edit and delete it on this page."
+        );
+        router.refresh();
+      }
+    } else {
+      console.log(helpRequestData);
 
-      router.refresh();
+      handleSaveEdit();
+      const response = await fetch(
+        `../api/requests/byrequestid/${existingRequestData._id}`,
+        {
+          //might need to change route for update
+          method: "UPDATE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(helpRequestData),
+        }
+      );
+      if (response.ok) {
+        console.log("response ok");
+        alert(
+          "You have successfully updated this request. You can still view, edit and delete it on this page."
+        );
+        router.refresh();
+      }
     }
   }
 
@@ -96,7 +121,7 @@ export default function RequestForm({
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <label htmlFor="problem">What part is broken/not working:*</label>
         <input
-          value={existingRequestData?.problem}
+          defaultValue={existingRequestData?.problem}
           type="text"
           name="problem"
           id="problem"
@@ -119,7 +144,7 @@ export default function RequestForm({
         />
         <label htmlFor="locationdetails">location details (optional):</label>
         <input
-          value={existingRequestData?.locationdetails}
+          defaultValue={existingRequestData?.locationdetails}
           type="text"
           name="locationdetails"
           id="locationdetails"
@@ -128,7 +153,7 @@ export default function RequestForm({
         />
         <label htmlFor="description">additional description (optional):</label>
         <textarea
-          value={existingRequestData?.description}
+          defaultValue={existingRequestData?.description}
           name="description"
           id="description"
           rows={3}
@@ -138,7 +163,7 @@ export default function RequestForm({
         />
         <label htmlFor="tools">tools needed (optional):</label>
         <input
-          value={existingRequestData?.tools}
+          defaultValue={existingRequestData?.tools}
           type="text"
           name="tools"
           id="tools"
@@ -149,7 +174,7 @@ export default function RequestForm({
           type="submit"
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
-          {editMode ? "Edit request" : "Request help"}
+          {editMode ? "Save edit" : "Request help"}
         </button>
       </form>
     </section>

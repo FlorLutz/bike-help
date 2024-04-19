@@ -36,7 +36,7 @@ export default function RequestDetails(requestData: any) {
       },
       body: JSON.stringify(userId),
     });
-    router.push("/request");
+    // router.push("/request");
     if (response.ok) {
       console.log("response ok");
       alert(
@@ -63,16 +63,14 @@ export default function RequestDetails(requestData: any) {
     }
   }
 
-  async function handleEditRender(data) {
-    setEditMode(true);
-    //render the ReuestForm
-  }
-
   return editMode ? (
     <RequestForm
       userId={requestDetailsData.userId}
       editMode={true}
       existingRequestData={requestDetailsData}
+      handleSaveEdit={() => {
+        setEditMode(false);
+      }} // add the api request for updating the helpreqdata in db
     />
   ) : (
     <section>
@@ -144,7 +142,7 @@ export default function RequestDetails(requestData: any) {
       <div className="mt-4 flex place-content-between w-[400px]">
         <button
           type="button"
-          onClick={() => handleEditRender(requestDetailsData)}
+          onClick={() => setEditMode(true)}
           className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
         >
           <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />

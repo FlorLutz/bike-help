@@ -61,3 +61,27 @@ export async function PATCH(request: NextRequest, { params }: any) {
     });
   }
 }
+
+export async function UPDATE(request: NextRequest, { params }: any) {
+  await dbConnect();
+  console.log("UPDATE", params);
+
+  try {
+    const requestData = await request.json();
+    console.log("REQUEST", requestData);
+    const helprequest = await Helprequest.findByIdAndUpdate(
+      params.requestId,
+      requestData
+    );
+    console.log("helpRequestUpdate", helprequest);
+    return new NextResponse(
+      JSON.stringify({ message: "helprequest updated" }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return new NextResponse(JSON.stringify({ error: "Bad request" }), {
+      status: 400,
+    });
+  }
+}

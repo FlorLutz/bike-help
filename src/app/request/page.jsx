@@ -8,8 +8,12 @@ import dbConnect from "../../../db/connect";
 import { redirect } from "next/navigation";
 
 import Helprequest from "../../../db/models/Helprequest";
+import { revalidatePath } from "next/cache";
+export const revalidate = 0.5;
 
 export default async function RequestPage() {
+  // revalidatePath("/request");
+
   const session = await getServerSession(options);
   const userId = session.user.userId;
 

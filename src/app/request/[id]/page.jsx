@@ -3,6 +3,7 @@ import React from "react";
 import RequestDetails from "@/components/RequestDetails/RequestDetails";
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -18,13 +19,14 @@ export default function Request({ params }) {
 
   if (error) {
     console.log(error);
-    router.push("/request");
+    // router.push("/request");
   }
   if (isLoading) {
     return <p>ISLOADING</p>;
   }
-  console.log(openRequestData);
+  console.log("OPENRQDATA IN REQ ID PAGE", openRequestData);
   if (openRequestData.length === 0) {
+    revalidatePath("/request");
     router.push("/request");
   }
   if (openRequestData.length > 0) {
