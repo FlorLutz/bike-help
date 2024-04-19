@@ -80,10 +80,7 @@ export default function RequestForm({
     longitude: number | undefined;
     latitude: number | undefined;
   }
-  const [marker, setMarker]: [IMarker | any, Function] = useState({
-    longitude: 50,
-    latitude: 20,
-  });
+  const [marker, setMarker]: [IMarker | any, Function] = useState({});
 
   interface IlngLat {
     lngLat: { lng: number; lat: number };
@@ -108,6 +105,7 @@ export default function RequestForm({
         longitude: existingRequestData.longitude,
         latitude: existingRequestData.latitude,
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

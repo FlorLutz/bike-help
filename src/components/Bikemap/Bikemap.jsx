@@ -9,11 +9,7 @@ import useSWR from "swr";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Bikemap() {
-  const [initialViewState, setInitialViewState] = useState({
-    longitude: 12,
-    latitude: 51,
-    zoom: 16,
-  });
+  const [initialViewState, setInitialViewState] = useState({});
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -62,11 +58,9 @@ export default function Bikemap() {
     getViewport();
   }, []);
 
-  if (!openRequestsData || !poiData) {
+  if (!openRequestsData || !poiData || !initialViewState.latitude) {
     return;
   }
-  // console.log(poiData);
-  //   console.log("viewport", getViewport());
 
   //   DEBOUNCERFUNCTION mit Timeout, damit abgewartet wird bis viewportchange abgeschlossen ist
   // too many rerenderings for this function (and requests to the api):

@@ -22,11 +22,12 @@ export async function GET(request: NextRequest, { params }: any) {
 
 export async function DELETE(request: NextRequest, { params }: any) {
   await dbConnect();
-  console.log("PARAMSSESSION", params);
   try {
     const helprequest = await Helprequest.findByIdAndDelete(params.requestId);
     const requestData = await request.json();
-    await User.findByIdAndUpdate(requestData.userId, {
+    console.log("REQ DATA IN DELETE", requestData);
+
+    await User.findByIdAndUpdate(requestData, {
       $pull: { requests: helprequest._id },
     });
 
@@ -44,7 +45,6 @@ export async function DELETE(request: NextRequest, { params }: any) {
 
 export async function PATCH(request: NextRequest, { params }: any) {
   await dbConnect();
-  console.log("PARAMSSESSION", params);
 
   try {
     const helprequest = await Helprequest.findByIdAndUpdate(params.requestId, {
@@ -64,7 +64,6 @@ export async function PATCH(request: NextRequest, { params }: any) {
 
 export async function UPDATE(request: NextRequest, { params }: any) {
   await dbConnect();
-  console.log("UPDATE", params);
 
   try {
     const requestData = await request.json();

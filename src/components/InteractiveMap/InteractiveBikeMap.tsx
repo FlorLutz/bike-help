@@ -7,7 +7,7 @@ import InteractiveMap, {
   MarkerDragEvent,
 } from "react-map-gl";
 
-interface InteractiveBikeMapProps {
+interface IInteractiveBikeMapProps {
   handleDragEnd: ((e: MarkerDragEvent) => void) | undefined;
   handleMapClick: ((e: MapLayerMouseEvent) => void) | undefined;
   marker: { longitude: number; latitude: number };
@@ -17,25 +17,42 @@ export default function InteractiveBikeMap({
   handleMapClick,
   handleDragEnd,
   marker,
-}: InteractiveBikeMapProps) {
+}: IInteractiveBikeMapProps) {
   console.log("marker in InteractiveBikeMap", marker);
 
-  //currentlocation can be found with with GeolocateControl, for now, this is close to Spiced
-  // let lat = 52.502;
-  // let long = 13.411;
+  interface IInitialViewState {
+    latitude: number | undefined;
+    longitude: number | undefined;
+    zoom: number | undefined;
+  }
 
-  // if (marker) {
-  //   lat = marker.latitude;
-  //   long = marker.longitude;
-  // }
+  const [initialViewState, setInitialViewState]: [IInitialViewState, Function] =
+    useState({ latitude: undefined, longitude: undefined, zoom: undefined });
+  useEffect(() => {
+    if (marker.longitude) {
+      setInitialViewState({
+        latitude: marker.latitude,
+        longitude: marker.longitude,
+        zoom: 16,
+      });
+    } else {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          setInitialViewState({
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude,
+            zoom: 16,
+          });
+        });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log("NEW initialViewState", initialViewState);
 
-  // const [center, setCenter] = useState({ latitude: null, longitude: null });
-  // useEffect(() => {
-  //   marker &&
-  //     setCenter({ longitude: marker.longitude, latitude: marker.latitude });
-  // }, []);
-
-  if (!marker.longitude) {
+  if (!initialViewState.latitude) {
     return;
   }
 
@@ -44,11 +61,7 @@ export default function InteractiveBikeMap({
       onClick={handleMapClick}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
       mapLib={import("mapbox-gl")}
-      initialViewState={{
-        latitude: marker.latitude,
-        longitude: marker.longitude,
-        zoom: 16,
-      }}
+      initialViewState={initialViewState}
       style={{ width: 400, height: 400 }} // adjusts to screensize
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >

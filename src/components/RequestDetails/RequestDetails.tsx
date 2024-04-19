@@ -17,6 +17,7 @@ import { useState } from "react";
 import RequestForm from "../RequestForm/RequestForm";
 import { useRouter } from "next/navigation";
 import { redirect } from "next/navigation";
+import { getMyDateString } from "../../lib/clientActions";
 
 export default function RequestDetails(requestData: any) {
   const router = useRouter();
@@ -59,7 +60,7 @@ export default function RequestDetails(requestData: any) {
       alert(
         "You have marked the request as resolved. It will now be shown in the request history in your profile page. You can create a new one on this page."
       );
-      router.push("/request");
+      // router.push("/request");
     }
   }
 
@@ -87,7 +88,10 @@ export default function RequestDetails(requestData: any) {
       <h1 className="font-bold text-xl mt-4 mb-6">
         Details for your open Request
       </h1>
-      <p className="font-bold">What part is broken/not working:*</p>
+      <p className="font-bold">Time of creation:</p>
+      <p>{getMyDateString(requestDetailsData.date)}</p>
+
+      <p className="font-bold">What part is broken/not working:</p>
       <p>{requestDetailsData.problem}</p>
 
       {requestDetailsData.locationdetais && (

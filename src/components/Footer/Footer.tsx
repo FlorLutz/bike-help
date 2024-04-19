@@ -38,7 +38,7 @@ export default function Footer() {
             <Link href="/request">
               <FontAwesomeIcon
                 icon={faScrewdriverWrench}
-                className={`${pathName === "/request" && "text-white"}`}
+                className={`${pathName.includes("/request") && "text-white"}`}
               />
             </Link>
           </li>
