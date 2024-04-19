@@ -62,7 +62,8 @@ export async function PATCH(request: NextRequest, { params }: any) {
   }
 }
 
-export async function UPDATE(request: NextRequest, { params }: any) {
+export async function PUT(request: NextRequest, { params }: any) {
+  console.log("trying to update");
   await dbConnect();
 
   try {

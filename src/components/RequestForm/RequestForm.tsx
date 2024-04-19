@@ -17,6 +17,7 @@ export default function RequestForm({
 }) {
   //when creating a new request link it to the user too (by adding its id to the array of requests)
   const router = useRouter();
+  console.log("editMode", editMode);
   async function handleSubmit(event: any) {
     event.preventDefault();
     if (!marker.longitude) {
@@ -52,14 +53,11 @@ export default function RequestForm({
         router.refresh();
       }
     } else {
-      console.log(helpRequestData);
-
       handleSaveEdit();
       const response = await fetch(
         `../api/requests/byrequestid/${existingRequestData._id}`,
         {
-          //might need to change route for update
-          method: "UPDATE",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
