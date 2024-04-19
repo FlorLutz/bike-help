@@ -19,14 +19,13 @@ export default function Request({ params }) {
 
   if (error) {
     console.log(error);
-    // router.push("/request");
   }
   if (isLoading) {
     return <p>ISLOADING</p>;
   }
   console.log("OPENRQDATA IN REQ ID PAGE", openRequestData);
   if (openRequestData.length === 0) {
-    revalidatePath("/request");
+    // router.replace("/request");
     router.push("/request");
   }
   if (openRequestData.length > 0) {

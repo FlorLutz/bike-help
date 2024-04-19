@@ -9,6 +9,25 @@ import useSWR from "swr";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Bikemap() {
+  const [initialViewState, setInitialViewState] = useState({
+    longitude: 12,
+    latitude: 51,
+    zoom: 16,
+  });
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setInitialViewState({
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+          zoom: 16,
+        });
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
   const {
     data: poiData,
     error: poiError,
@@ -24,7 +43,6 @@ export default function Bikemap() {
   //conditional showing of additional information on click
   const [showAdditionalInfo, setShowAdditionalInfo] = useState();
   function handleAdditionalInfo(poiId) {
-    // console.log("poiId", poiId);
     // console.log("showAdditionalInfo", showAdditionalInfo);
     if (showAdditionalInfo === poiId) {
       setShowAdditionalInfo();
@@ -43,22 +61,12 @@ export default function Bikemap() {
   useEffect(() => {
     getViewport();
   }, []);
-  if (!poiData) {
-    return;
-  }
 
   if (!openRequestsData || !poiData) {
     return;
   }
   // console.log(poiData);
   //   console.log("viewport", getViewport());
-
-  //API-REQUEST FOR POI-MARKERS:
-  // const { data, isLoading } = useSWR("api/pointsofinterest");
-  // if (!data) {
-  //   return;
-  // }
-  // console.log("POIs", data);
 
   //   DEBOUNCERFUNCTION mit Timeout, damit abgewartet wird bis viewportchange abgeschlossen ist
   // too many rerenderings for this function (and requests to the api):
@@ -74,11 +82,7 @@ export default function Bikemap() {
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}
-        initialViewState={{
-          latitude: 52.502, //currentlocation can be found with with GeolocateControl, for now, this is close to Spiced
-          longitude: 13.411,
-          zoom: 16,
-        }}
+        initialViewState={initialViewState}
         style={{ width: viewport[0], height: viewport[1] - 95 }} // adjusts to screensize
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
