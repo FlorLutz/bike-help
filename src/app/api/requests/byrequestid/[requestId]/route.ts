@@ -29,6 +29,7 @@ export async function DELETE(request: NextRequest, { params }: any) {
     await User.findByIdAndUpdate(requestData.userId, {
       $pull: { requests: helprequest._id },
     });
+
     return new NextResponse(
       JSON.stringify({ message: "helprequest deleted" }),
       { status: 200 }

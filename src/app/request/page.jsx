@@ -15,21 +15,22 @@ export default async function RequestPage() {
 
   let openRequestData = [];
 
+  console.log("SESSION", session.user);
+
   if (session) {
     try {
       await dbConnect();
-
       openRequestData = await Helprequest.find({
         isOpen: true,
         userId: userId,
       });
-      openRequestData[0]._id && redirect(`/request/${openRequestData[0]._id}`);
+      console.log();
     } catch (error) {
       console.error(error);
     }
   }
-
-  console.log("openRequestData", openRequestData);
+  console.log("OPENREQDATA", openRequestData);
+  openRequestData[0] && redirect(`/request/${openRequestData[0].id}`);
 
   return (
     <Layout>

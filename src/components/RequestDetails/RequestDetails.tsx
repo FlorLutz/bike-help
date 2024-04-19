@@ -16,9 +16,11 @@ import InteractiveMap, {
 import { useState } from "react";
 import RequestForm from "../RequestForm/RequestForm";
 import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function RequestDetails(requestData: any) {
   const router = useRouter();
+
   console.log("REQUEST IN REG DET", requestData.requestData);
   const requestDetailsData = requestData.requestData;
 
@@ -27,26 +29,26 @@ export default function RequestDetails(requestData: any) {
   async function handleDelete(id: string, userId: string) {
     console.log("deleting");
 
-    const response = await fetch(`api/requests/byrequestid/${id}`, {
+    const response = await fetch(`/../api/requests/byrequestid/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userId),
     });
+    router.push("/request");
     if (response.ok) {
       console.log("response ok");
       alert(
         "You have successfully deleted the request. You can now create a new one on this page."
       );
-      router.refresh();
     }
   }
 
   async function handleResolved(id: string) {
     console.log("resolving");
 
-    const response = await fetch(`api/requests/byrequestid/${id}`, {
+    const response = await fetch(`/../api/requests/byrequestid/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +59,7 @@ export default function RequestDetails(requestData: any) {
       alert(
         "You have marked the request as resolved. It will now be shown in the request history in your profile page. You can create a new one on this page."
       );
-      router.refresh();
+      router.push("/request");
     }
   }
 
