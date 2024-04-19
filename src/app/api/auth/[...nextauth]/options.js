@@ -1,14 +1,15 @@
-import type { NextAuthOptions } from "next-auth";
+// import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/../db/mongodb";
 
-export const options: NextAuthOptions = {
+// export const options: NextAuthOptions = {
+export const options = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       profile(profile) {
         // console.log("PROFILE!!!", profile);
         return {
