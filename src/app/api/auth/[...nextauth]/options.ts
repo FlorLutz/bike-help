@@ -1,15 +1,16 @@
-// import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/../db/mongodb";
+import type { Adapter } from "next-auth/adapters";
 
-// export const options: NextAuthOptions = {
-export const options = {
-  adapter: MongoDBAdapter(clientPromise),
+export const options: NextAuthOptions = {
+  // export const options = {
+  adapter: MongoDBAdapter(clientPromise) as Adapter,
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       profile(profile) {
         // console.log("PROFILE!!!", profile);
         return {
@@ -23,7 +24,7 @@ export const options = {
   ],
   debug: true,
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, user }: any) {
       session.user.userId = user.id;
       return session;
     },
