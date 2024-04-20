@@ -3,21 +3,43 @@ import React, { useEffect } from "react";
 import Map, { NavigationControl, GeolocateControl } from "react-map-gl";
 import { useState } from "react";
 import MarkerPOI from "../MarkerPOI/MarkerPOI";
+import MarkerRequest from "../MarkerRequest/MarkerRequest";
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Bikemap() {
+  const [initialViewState, setInitialViewState] = useState({});
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setInitialViewState({
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+          zoom: 16,
+        });
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
   const {
     data: poiData,
-    error,
-    isLoading,
+    error: poiError,
+    isLoading: poiIsLoading,
   } = useSWR("/api/pointsofinterest", fetcher);
+
+  const {
+    data: openRequestsData,
+    error: openRequestsError,
+    isLoading: openRequestsIsLoading,
+  } = useSWR("/api/requests", fetcher);
+
   //conditional showing of additional information on click
   const [showAdditionalInfo, setShowAdditionalInfo] = useState();
   function handleAdditionalInfo(poiId) {
-    console.log("poiId", poiId);
-    console.log("showAdditionalInfo", showAdditionalInfo);
+    // console.log("showAdditionalInfo", showAdditionalInfo);
     if (showAdditionalInfo === poiId) {
       setShowAdditionalInfo();
     } else {
@@ -35,18 +57,10 @@ export default function Bikemap() {
   useEffect(() => {
     getViewport();
   }, []);
-  if (!poiData) {
+
+  if (!openRequestsData || !poiData || !initialViewState.latitude) {
     return;
   }
-  console.log(poiData);
-  //   console.log("viewport", getViewport());
-
-  //API-REQUEST FOR POI-MARKERS:
-  // const { data, isLoading } = useSWR("api/pointsofinterest");
-  // if (!data) {
-  //   return;
-  // }
-  // console.log("POIs", data);
 
   //   DEBOUNCERFUNCTION mit Timeout, damit abgewartet wird bis viewportchange abgeschlossen ist
   // too many rerenderings for this function (and requests to the api):
@@ -57,15 +71,12 @@ export default function Bikemap() {
 
   return (
     <>
-      {isLoading && <p>Waiting for data</p>}
+      {poiIsLoading && <p>Waiting for POIdata</p>}
+      {openRequestsIsLoading && <p>Waiting for data</p>}
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}
-        initialViewState={{
-          latitude: 52.502, //currentlocation can be found with with GeolocateControl, for now, this is close to Spiced
-          longitude: 13.411,
-          zoom: 16,
-        }}
+        initialViewState={initialViewState}
         style={{ width: viewport[0], height: viewport[1] - 95 }} // adjusts to screensize
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
@@ -81,6 +92,21 @@ export default function Bikemap() {
           handleAdditionalInfo={handleAdditionalInfo}
           showAdditionalInfo={showAdditionalInfo}
         />
+        {openRequestsData.map((openRequest) => (
+          <MarkerRequest
+            key={openRequest._id}
+            id={openRequest._id}
+            latitude={openRequest.latitude}
+            longitude={openRequest.longitude}
+            problem={openRequest.problem}
+            description={openRequest.description}
+            locationDetails={openRequest.locationDetails}
+            tools={openRequest.tools}
+            date={openRequest.date}
+            // handleAdditionalInfo={handleAdditionalInfo}
+            // showAdditionalInfo={showAdditionalInfo}
+          />
+        ))}
         {poiData.map((poi) => (
           <MarkerPOI
             key={poi._id}
