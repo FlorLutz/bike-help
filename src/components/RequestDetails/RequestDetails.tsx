@@ -14,19 +14,38 @@ import InteractiveMap, {
   Marker,
 } from "react-map-gl";
 import { useState } from "react";
-import Link from "next/link";
 import RequestForm from "../RequestForm/RequestForm";
-// import { useRouter } from "next/navigation";
 import { getMyDateString } from "../../lib/clientActions";
-// import { getSignedInUserId } from "../../lib/serverActions";
 import { useSession } from "next-auth/react";
 import { redirectServer } from "../../lib/serverActions";
+import useSWR from "swr";
+import Image from "next/image";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function RequestDetails({ requestData: requestDetailsData }) {
   const session: any = useSession();
   const userId = session?.data?.user?.userId;
 
   const [editMode, setEditMode] = useState(false);
+
+  const {
+    data: userData,
+    error,
+    isLoading,
+  } = useSWR(`/api/user/${requestDetailsData.userId}`, fetcher);
+
+  if (error) {
+    console.log(error);
+  }
+  if (isLoading) {
+    return <p>USERDATA IS LOADING</p>;
+  }
+  if (!userData) {
+    return;
+  }
+
+  console.log("USERDATA IN REQDETAILS", userData);
 
   async function handleDelete(id: string, userId: string) {
     console.log("deleting");
@@ -72,7 +91,19 @@ export default function RequestDetails({ requestData: requestDetailsData }) {
     />
   ) : (
     <section className="m-4">
-      <h1 className="font-bold text-xl mt-4 mb-6">Details for this Request</h1>
+      <h1 className="font-bold text-xl mt-4 mb-6">Request Details</h1>
+
+      <p className="font-bold">Created by user:</p>
+      <p>{userData.name}</p>
+
+      <Image
+        src={userData.image}
+        alt="profile foto"
+        width={150}
+        height={150}
+        className="rounded-full"
+      />
+
       {!requestDetailsData.isOpen && (
         <button
           onClick={() => redirectServer("/request")}

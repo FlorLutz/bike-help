@@ -24,8 +24,8 @@ export default async function ProfileHistory() {
 
   console.log("solvedRequests", solvedRequests);
 
-  return !solvedRequests ? (
-    <p>You have no solved requests so far.</p>
+  return solvedRequests.length === 0 ? (
+    <p className="mt-8">You have no solved requests so far.</p>
   ) : (
     <section className="mt-8 mb-4">
       <h2 className="font-bold text-lg mb-4">Your History</h2>
