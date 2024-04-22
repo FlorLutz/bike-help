@@ -28,6 +28,15 @@ export const options: NextAuthOptions = {
       session.user.userId = user.id;
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      console.log(baseUrl, "baseUrl", url, "url");
+      url = "/profile";
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return url;
+    },
   },
 };
 

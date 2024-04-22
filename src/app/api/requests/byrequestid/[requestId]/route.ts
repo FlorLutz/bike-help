@@ -7,12 +7,16 @@ export async function GET(request: NextRequest, { params }: any) {
   await dbConnect();
   console.log("PARAMSSESSION", params.requestId);
 
-  const helprequests = await Helprequest.find({
-    isOpen: true,
-    _id: params.requestId,
-  });
-  if (helprequests) {
-    return new NextResponse(JSON.stringify(helprequests), { status: 200 });
+  const helprequest = await Helprequest.findById(params.requestId);
+
+  // {
+  // isOpen: true,
+  // _id:
+  // params.requestId,
+  //   }
+  // );
+  if (helprequest) {
+    return new NextResponse(JSON.stringify(helprequest), { status: 200 });
   } else {
     return new NextResponse(JSON.stringify({ message: "Bad request" }), {
       status: 400,

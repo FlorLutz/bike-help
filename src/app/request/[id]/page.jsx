@@ -9,11 +9,9 @@ import Layout from "@/components/Layout/Layout";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Request({ params }) {
-  const router = useRouter();
-
   console.log(params.id);
   const {
-    data: openRequestData,
+    data: requestData,
     error,
     isLoading,
   } = useSWR(`/api/requests/byrequestid/${params.id}`, fetcher);
@@ -24,14 +22,13 @@ export default function Request({ params }) {
   if (isLoading) {
     return <p>ISLOADING</p>;
   }
-  if (openRequestData.length === 0) {
+  if (!requestData) {
     redirectServer("/request");
+    // return;
   }
-  if (openRequestData.length > 0) {
-    return (
-      <Layout>
-        <RequestDetails requestData={openRequestData[0]} />
-      </Layout>
-    );
-  }
+  return (
+    <Layout>
+      <RequestDetails requestData={requestData} />
+    </Layout>
+  );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Popup } from "react-map-gl";
-import { getMyTimeString } from "../../lib/clientActions";
+import { getMyDateString } from "../../lib/clientActions";
 import Link from "next/link";
 
 export default function PopupMarker({ popupInfo, setPopupInfo }) {
@@ -29,20 +29,31 @@ export default function PopupMarker({ popupInfo, setPopupInfo }) {
         setPopupInfo(null);
       }}
     >
-      <section
-      //   className="bg-white z-10 p-2 rounded"
-      >
+      <section>
         <h1 className="font-bold text-xl">{type}</h1>
-        <h2 className="font-bold text-lg">{title}</h2>
+        {title && <h2 className="font-bold text-lg">{title}</h2>}
         <h2 className="font-bold text-lg">{problem}</h2>
-        <p>{`created: ${getMyTimeString(date)} by user with id: ${userId}`}</p>
+        {date && (
+          <p>{`created: ${getMyDateString(
+            date
+          )} by user with id: ${userId}`}</p>
+        )}
         <p>{description}</p>
-        <p>{adress}</p>
-        <p>{openingHours}</p>
-        {url && <Link href={url}>Website</Link>}
-        <p>{locationDetails}</p>
-        <p>{tools}</p>
-        {requestId && <Link href={`/request/${requestId}`}>Show details</Link>}
+        {adress && <p>{adress}</p>}
+        {openingHours && <p>{openingHours}</p>}
+        {url && (
+          <Link href={url} className="text-emerald-500">
+            {" "}
+            got to website
+          </Link>
+        )}
+        {locationDetails && <p>{locationDetails}</p>}
+        {tools && <p>{tools}</p>}
+        {requestId && (
+          <Link href={`/request/${requestId}`} className="text-emerald-500">
+            Show details
+          </Link>
+        )}
       </section>
     </Popup>
   );

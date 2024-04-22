@@ -31,7 +31,7 @@
     "src/app/profile/page.jsx",
     "src/components/RequestForm/RequestForm.jsx",
     "src/app/request/page.jsx",
-    "src/app/api/auth/[...nextauth]/options.js"
+    "src/app/api/auth/[...nextauth]/options.ts"
   ],
   "exclude": ["node_modules"]
 }

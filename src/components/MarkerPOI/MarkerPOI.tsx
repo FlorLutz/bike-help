@@ -5,32 +5,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faShop } from "@fortawesome/free-solid-svg-icons";
 
 interface MarkerPOIProps {
-  id: string;
-  longitude: number;
-  latitude: number;
-  title: string;
-  description: string;
-  adress: string;
-  openingHours: string;
-  url: string;
+  poiData: {
+    id: string;
+    longitude: number;
+    latitude: number;
+    title: string;
+    description: string;
+    adress: string;
+    openingHours: string;
+    url: string;
+  };
+  type: string;
   handleAdditionalInfo: Function;
-  showAdditionalInfo: string;
 }
 
 export default function MarkerPOI({
-  // id,
-  // longitude,
-  // latitude,
-  // title,
-  // description,
-  // adress,
-  // openingHours,
-  // url,
   poiData,
   type,
   handleAdditionalInfo,
-}: // showAdditionalInfo,
-MarkerPOIProps) {
+}: MarkerPOIProps) {
   return (
     <>
       <Marker
@@ -38,17 +31,6 @@ MarkerPOIProps) {
         latitude={poiData.latitude}
         anchor="center"
       >
-        {/* {showAdditionalInfo === id && (
-          <section className="bg-white z-10 p-2 rounded">
-            <h1>Point of interest</h1>
-            <h2>{title}</h2>
-            <p>{description}</p>
-            <p>{adress}</p>
-            <p>{openingHours}</p>
-            <Link href={url}>Website</Link>
-          </section>
-        )}
-      */}
         <section
           onClick={(e) => {
             e.stopPropagation();
@@ -63,17 +45,6 @@ MarkerPOIProps) {
           ></FontAwesomeIcon>
         </section>
       </Marker>
-      {/* additional component
-      <Popup longitude={longitude} latitude={latitude} anchor="bottom">
-        <section className="bg-white z-10 p-2 rounded">
-          <h1>Point of interest</h1>
-          <h2>{title}</h2>
-          <p>{description}</p>
-          <p>{adress}</p>
-          <p>{openingHours}</p>
-          <Link href={url}>Website</Link>
-        </section>
-      </Popup> */}
     </>
   );
 }
