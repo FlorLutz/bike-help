@@ -10,10 +10,13 @@ export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false); // initiate isNavOpen state with false
 
   return (
-    <section className="bg-emerald-500 flex place-content-between text-2xl py-2">
+    <section className="bg-emerald-500 flex place-content-between text-4xl py-4 h-20px">
       <Link href="/" className="flex">
-        <FontAwesomeIcon icon={faBicycle} className="mx-4"></FontAwesomeIcon>{" "}
-        <p className="font-bold">Bike Help</p>
+        <FontAwesomeIcon
+          icon={faBicycle}
+          className="mx-4 mt-[2px]"
+        ></FontAwesomeIcon>{" "}
+        <p className="font-bold ">Bike Help</p>
       </Link>
       <div className="flex items-center justify-between">
         <nav>

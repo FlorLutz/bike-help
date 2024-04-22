@@ -69,7 +69,7 @@ export default function RequestDetails(requestData: any) {
       }}
     />
   ) : (
-    <section>
+    <section className="m-4">
       <div className="w-[400px] px-4 flex gap-4 border-4 rounded border-emerald-950">
         <FontAwesomeIcon
           icon={faLightbulb}
