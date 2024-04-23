@@ -5,12 +5,6 @@ import Bikemap from "../components/Bikemap/Bikemap";
 import { useState } from "react";
 
 export default function Home() {
-  // const [isShowDetails, setIsShowDetails] = useState(false);
-  // function handleShowDetails() {
-  //   console.log("handelShowDetails triggered");
-  //   setIsShowDetails(!isShowDetails);
-  // }
-
   return (
     <Layout>
       <Bikemap />

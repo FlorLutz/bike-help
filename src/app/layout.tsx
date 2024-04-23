@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import AuthProvider from "./context/AuthProvider";
 import "./globals.css";
 import React from "react";
+import { Inter } from "next/font/google";
+
+//font from google needs to be implemented
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Bike Help",
