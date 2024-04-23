@@ -23,7 +23,9 @@ import Image from "next/image";
 
 const fetcher = (args: any) => fetch(args).then((res) => res.json());
 
-export default function RequestDetails({ requestData: requestDetailsData }) {
+export default function RequestDetails({
+  requestData: requestDetailsData,
+}: any) {
   const session: any = useSession();
   const userId = session?.data?.user?.userId;
 
