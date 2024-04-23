@@ -4,7 +4,7 @@ import Layout from "@/components/Layout/Layout";
 import LinkButton from "@/components/LinkButton/LinkButton";
 import { options } from "../api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
-import ProfileDetails from "@/components/ProfileDetails/ProfileDetails";
+import ProfileHistory from "../../components/ProfileHistory/ProfileHistory";
 
 export default async function ProfilePage() {
   const session = await getServerSession(options);
@@ -25,8 +25,8 @@ export default async function ProfilePage() {
             <p className="mb-4">
               You are signed in as <strong>{session?.user.name}</strong>.
             </p>
-            {/* <ProfileDetails /> optional for more details, component already exists and is imported*/}
             <LinkButton href="api/auth/signout" text="SignOut here" />
+            <ProfileHistory />
           </>
         ) : (
           <>

@@ -4,6 +4,7 @@ import Map, { NavigationControl, GeolocateControl } from "react-map-gl";
 import { useState } from "react";
 import MarkerPOI from "../MarkerPOI/MarkerPOI";
 import MarkerRequest from "../MarkerRequest/MarkerRequest";
+import PopupMarker from "../PopupMarker/PopupMarker";
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -36,16 +37,28 @@ export default function Bikemap() {
     isLoading: openRequestsIsLoading,
   } = useSWR("/api/requests", fetcher);
 
-  //conditional showing of additional information on click
-  const [showAdditionalInfo, setShowAdditionalInfo] = useState();
-  function handleAdditionalInfo(poiId) {
-    // console.log("showAdditionalInfo", showAdditionalInfo);
-    if (showAdditionalInfo === poiId) {
-      setShowAdditionalInfo();
-    } else {
-      setShowAdditionalInfo(poiId);
-    }
+  const [popupInfo, setPopupInfo] = useState(null);
+  function handleAdditionalInfo(markerData, type) {
+    console.log("setting popupinfo to:", markerData);
+    setPopupInfo({
+      longitude: markerData.longitude,
+      latitude: markerData.latitude,
+      type: type,
+      date: markerData.date,
+      title: markerData.title,
+      problem: markerData.problem,
+      description: markerData.description,
+      adress: markerData.adress,
+      openingHours: markerData.openingHours,
+      url: markerData.url,
+      locationDetails: markerData.locationDetails,
+      tools: markerData.tools,
+      requestId: markerData._id,
+      userId: markerData.userId,
+    });
   }
+  console.log("set popupinfo to:", popupInfo);
+
   //viewport adjustment to windowsize
   const [viewport, setViewport] = useState([]);
   function getViewport() {
@@ -71,57 +84,34 @@ export default function Bikemap() {
 
   return (
     <>
-      {poiIsLoading && <p>Waiting for POIdata</p>}
-      {openRequestsIsLoading && <p>Waiting for data</p>}
+      {poiIsLoading && <p>Waiting for POI data</p>}
+      {openRequestsIsLoading && <p>Waiting for Request data</p>}
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}
         initialViewState={initialViewState}
-        style={{ width: viewport[0], height: viewport[1] - 95 }} // adjusts to screensize
+        style={{ width: viewport[0], height: viewport[1] - 144 }} // adjusts to screensize
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
-        <MarkerPOI
-          id="blabliblub"
-          latitude={52.502}
-          longitude={13.411}
-          title="Spiced TEST POI"
-          description="Academy"
-          adress="Ritterstr., Kreuzberg"
-          openingHours="Mo-Fr, 9-18"
-          url="https://www.spiced-academy.com/"
-          handleAdditionalInfo={handleAdditionalInfo}
-          showAdditionalInfo={showAdditionalInfo}
-        />
         {openRequestsData.map((openRequest) => (
           <MarkerRequest
             key={openRequest._id}
-            id={openRequest._id}
-            latitude={openRequest.latitude}
-            longitude={openRequest.longitude}
-            problem={openRequest.problem}
-            description={openRequest.description}
-            locationDetails={openRequest.locationDetails}
-            tools={openRequest.tools}
-            date={openRequest.date}
-            // handleAdditionalInfo={handleAdditionalInfo}
-            // showAdditionalInfo={showAdditionalInfo}
+            requestData={openRequest}
+            type="please HELP"
+            handleAdditionalInfo={handleAdditionalInfo}
           />
         ))}
         {poiData.map((poi) => (
           <MarkerPOI
             key={poi._id}
-            id={poi._id}
-            latitude={poi.latitude}
-            longitude={poi.longitude}
-            title={poi.title}
-            description={poi.description}
-            adress={poi.adress}
-            openingHours={poi.openingHours}
-            url={poi.url}
+            poiData={poi}
+            type="Point of Interest"
             handleAdditionalInfo={handleAdditionalInfo}
-            showAdditionalInfo={showAdditionalInfo}
           />
         ))}
+        {popupInfo && (
+          <PopupMarker popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
+        )}
         <NavigationControl />
         <GeolocateControl />
       </Map>

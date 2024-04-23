@@ -14,9 +14,9 @@ export default function Footer() {
   const pathName = usePathname();
 
   return (
-    <footer className="bg-emerald-500 py-2 fixed w-full bottom-0">
+    <footer className="bg-emerald-500 fixed w-full bottom-0 py-4 h-20px">
       <nav>
-        <ul className="flex place-content-evenly text-2xl">
+        <ul className="flex place-content-evenly text-4xl">
           {/* styling not yet working, the whole field should be clickable */}
           <Link href="/profile" className="width-1/3 block">
             <li>

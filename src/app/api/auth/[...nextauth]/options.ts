@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from "@/../db/mongodb";
+import clientPromise from "../../../../../db/mongodb";
 import type { Adapter } from "next-auth/adapters";
 
 export const options: NextAuthOptions = {
@@ -27,6 +27,15 @@ export const options: NextAuthOptions = {
     async session({ session, user }: any) {
       session.user.userId = user.id;
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      console.log(baseUrl, "baseUrl", url, "url");
+      url = "/profile";
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return url;
     },
   },
 };

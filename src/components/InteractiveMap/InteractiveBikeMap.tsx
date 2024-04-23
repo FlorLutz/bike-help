@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 import InteractiveMap, {
   NavigationControl,
   GeolocateControl,
@@ -71,7 +73,15 @@ export default function InteractiveBikeMap({
           latitude={marker.latitude}
           draggable
           onDragEnd={handleDragEnd}
-        />
+        >
+          <div className="flex flex-col items-center">
+            <strong>HELP!</strong>
+            <FontAwesomeIcon
+              icon={faScrewdriverWrench}
+              className="text-2xl"
+            ></FontAwesomeIcon>
+          </div>
+        </Marker>
       )}
       <NavigationControl />
       <GeolocateControl />

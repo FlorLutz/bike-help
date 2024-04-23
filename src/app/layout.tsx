@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AuthProvider from "./context/AuthProvider";
 import "./globals.css";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Bike Help",
