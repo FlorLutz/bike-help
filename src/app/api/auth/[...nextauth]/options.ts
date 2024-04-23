@@ -5,6 +5,7 @@ import clientPromise from "../../../../../db/mongodb";
 import type { Adapter } from "next-auth/adapters";
 
 export const options: NextAuthOptions = {
+  // min 51 nextauth adapter for redis
   // export const options = {
   adapter: MongoDBAdapter(clientPromise) as Adapter,
   providers: [

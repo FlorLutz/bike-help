@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
+  faComments,
   faMap,
   faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
@@ -18,14 +19,22 @@ export default function Footer() {
       <nav>
         <ul className="flex place-content-evenly text-4xl">
           {/* styling not yet working, the whole field should be clickable */}
-          <Link href="/profile" className="width-1/3 block">
-            <li>
+          <li>
+            <Link href="/profile">
               <FontAwesomeIcon
                 icon={faUser}
                 className={`${pathName === "/profile" && "text-white"}`}
               />
-            </li>
-          </Link>
+            </Link>
+          </li>
+          <li>
+            <Link href="/chat">
+              <FontAwesomeIcon
+                icon={faComments}
+                className={`${pathName === "/chat" && "text-white"}`}
+              />
+            </Link>
+          </li>
           <li>
             <Link href="/">
               <FontAwesomeIcon

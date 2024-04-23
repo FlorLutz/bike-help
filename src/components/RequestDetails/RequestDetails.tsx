@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import { redirectServer } from "../../lib/serverActions";
 import useSWR from "swr";
 import Image from "next/image";
+import { toast } from "react-hot-toast";
 
 const fetcher = (args: any) => fetch(args).then((res) => res.json());
 
@@ -61,7 +62,7 @@ export default function RequestDetails({
     });
     if (response.ok) {
       console.log("response ok");
-      alert(
+      toast.success(
         "You have successfully deleted the request. You can now create a new one on this page."
       );
     }
