@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 export default function RequestForm({
   userId,
@@ -21,7 +22,7 @@ export default function RequestForm({
   async function handleSubmit(event: any) {
     event.preventDefault();
     if (!marker.longitude) {
-      alert("Please set a location on the map first");
+      toast.error("Please set a location on the map first");
       return;
     }
     const formData = new FormData(event.target);
@@ -47,7 +48,7 @@ export default function RequestForm({
       });
       if (response.ok) {
         console.log("response ok");
-        alert(
+        toast.success(
           "You have successfully created a new request. You can view, edit and delete it on this page."
         );
         router.refresh();
@@ -66,7 +67,7 @@ export default function RequestForm({
       );
       if (response.ok) {
         console.log("response ok");
-        alert(
+        toast.success(
           "You have successfully updated this request. You can still view, edit and delete it on this page."
         );
         router.refresh();
