@@ -21,7 +21,7 @@ import { redirectServer } from "../../lib/serverActions";
 import useSWR from "swr";
 import Image from "next/image";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (args: any) => fetch(args).then((res) => res.json());
 
 export default function RequestDetails({ requestData: requestDetailsData }) {
   const session: any = useSession();
