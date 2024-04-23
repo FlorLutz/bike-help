@@ -3,7 +3,32 @@ import { Popup } from "react-map-gl";
 import { getMyDateString } from "../../lib/clientActions";
 import Link from "next/link";
 
-export default function PopupMarker({ popupInfo, setPopupInfo }) {
+interface IPopupInfo {
+  longitude: number;
+  latitude: number;
+  type: string;
+  date: string;
+  title: string;
+  problem: string;
+  description: string;
+  adress: string;
+  openingHours: string;
+  url: string;
+  locationDetails: string;
+  tools: string;
+  requestId: string;
+  userId: string;
+}
+
+interface IPopupMarkerProps {
+  popupInfo: IPopupInfo;
+  setPopupInfo: Function;
+}
+
+export default function PopupMarker({
+  popupInfo,
+  setPopupInfo,
+}: IPopupMarkerProps) {
   const {
     longitude,
     latitude,
@@ -58,5 +83,3 @@ export default function PopupMarker({ popupInfo, setPopupInfo }) {
     </Popup>
   );
 }
-
-// longitude, latitude, type, title/problem, date?, description, adress, openingHours, url, locationDetails, tools, requestId, user?
