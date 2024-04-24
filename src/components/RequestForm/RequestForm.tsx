@@ -4,6 +4,7 @@ import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { redirectServer } from "@/lib/serverActions";
 
 export default function RequestForm({
   userId,
@@ -70,7 +71,7 @@ export default function RequestForm({
         toast.success(
           "You have successfully updated this request. You can still view, edit and delete it on this page."
         );
-        router.refresh();
+        redirectServer(`/request`);
       }
     }
   }
@@ -108,14 +109,15 @@ export default function RequestForm({
   }, []);
 
   return (
-    <section>
-      <h1 className="font-bold text-xl mb-6 font-serif">
+    <section className="mx-4 my-8 flex flex-col items-center gap-4 text-lg">
+      <h1 className="font-bold text-2xl mb-6 font-serif">
         {editMode ? "Edit Request" : "New Request"}
       </h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <label htmlFor="problem">What part is broken/not working:*</label>
         <input
+          className="mb-2"
           defaultValue={existingRequestData?.problem}
           type="text"
           name="problem"
@@ -134,6 +136,7 @@ export default function RequestForm({
         </datalist>
         <label htmlFor="phonenumber">your phone number:*</label>
         <input
+          className="mb-2"
           defaultValue={existingRequestData?.phonenumber}
           type="text"
           name="phonenumber"
@@ -150,15 +153,17 @@ export default function RequestForm({
         />
         <label htmlFor="locationdetails">location details (optional):</label>
         <input
+          className="mb-2"
           defaultValue={existingRequestData?.locationdetails}
           type="text"
           name="locationdetails"
           id="locationdetails"
           maxLength={40}
-          placeholder="e.g. I stand next to the big tree, opposite from a bank"
+          placeholder="e.g. I stand in front of the big bank"
         />
         <label htmlFor="description">additional description (optional):</label>
         <textarea
+          className="mb-2"
           defaultValue={existingRequestData?.description}
           name="description"
           id="description"
@@ -169,12 +174,13 @@ export default function RequestForm({
         />
         <label htmlFor="tools">tools needed (optional):</label>
         <input
+          className="mb-2"
           defaultValue={existingRequestData?.tools}
           type="text"
           name="tools"
           id="tools"
           maxLength={40}
-          placeholder='e.g. tire levers, patch and glue or a new 28" race tube'
+          placeholder="e.g. tire levers, patch and glue"
         />
         <button
           type="submit"

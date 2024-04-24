@@ -8,7 +8,6 @@ import { getMyDateString } from "../../lib/clientActions";
 
 export default async function ProfileHistory() {
   const session: any = await getServerSession(options);
-  console.log("PARAMSSESSION in PROFILE", session.user.userId);
 
   let solvedRequests: any;
   try {
@@ -17,12 +16,9 @@ export default async function ProfileHistory() {
       isOpen: false,
       userId: session.user.userId,
     });
-    console.log();
   } catch (error) {
     console.error(error);
   }
-
-  console.log("solvedRequests", solvedRequests);
 
   return solvedRequests.length === 0 ? (
     <p className="mt-8">You have no solved requests so far.</p>

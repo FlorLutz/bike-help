@@ -20,8 +20,6 @@ export default function InteractiveBikeMap({
   handleDragEnd,
   marker,
 }: IInteractiveBikeMapProps) {
-  console.log("marker in InteractiveBikeMap", marker);
-
   interface IInitialViewState {
     latitude: number | undefined;
     longitude: number | undefined;
@@ -52,7 +50,6 @@ export default function InteractiveBikeMap({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("NEW initialViewState", initialViewState);
 
   if (!initialViewState.latitude) {
     return;
@@ -73,8 +70,9 @@ export default function InteractiveBikeMap({
           latitude={marker.latitude}
           draggable
           onDragEnd={handleDragEnd}
+          anchor="center"
         >
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center text-orange-700">
             <strong>HELP!</strong>
             <FontAwesomeIcon
               icon={faScrewdriverWrench}

@@ -2,13 +2,11 @@
 import React from "react";
 import RequestDetails from "@/components/RequestDetails/RequestDetails";
 import useSWR from "swr";
-import { useRouter } from "next/navigation";
 import { redirectServer } from "../../../lib/serverActions";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Request({ params }) {
-  console.log(params.id);
   const {
     data: requestData,
     error,
@@ -16,14 +14,13 @@ export default function Request({ params }) {
   } = useSWR(`/api/requests/byrequestid/${params.id}`, fetcher);
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
   if (isLoading) {
-    return <p>ISLOADING</p>;
+    return <p>request details are loading</p>;
   }
   if (!requestData) {
     redirectServer("/request");
-    // return;
   }
   return <RequestDetails requestData={requestData} />;
 }

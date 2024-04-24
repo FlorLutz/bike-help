@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <>
       <div className="pt-[72px]" />
-      <footer className="bg-emerald-500 fixed w-full bottom-0 py-4 h-20px z-10">
+      <footer className="bg-emerald-500 fixed w-full bottom-0 py-4 h-[72px] z-10">
         <nav>
           <ul className="flex place-content-evenly text-4xl">
             {/* styling not yet working, the whole field should be clickable */}
@@ -24,7 +24,10 @@ export default function Footer() {
               <li>
                 <FontAwesomeIcon
                   icon={faUser}
-                  className={`${pathName === "/profile" && "text-white"}`}
+                  className={`${
+                    pathName === "/profile" &&
+                    "text-white pb-2 border-b-4 border-solid border-white rounded"
+                  }`}
                 />
               </li>
             </Link>
@@ -32,7 +35,10 @@ export default function Footer() {
               <Link href="/">
                 <FontAwesomeIcon
                   icon={faMap}
-                  className={`${pathName === "/" && "text-white"}`}
+                  className={`${
+                    pathName === "/" &&
+                    "text-white pb-2 border-b-4 border-solid border-white rounded"
+                  }`}
                 />
               </Link>
             </li>
@@ -40,7 +46,10 @@ export default function Footer() {
               <Link href="/request">
                 <FontAwesomeIcon
                   icon={faScrewdriverWrench}
-                  className={`${pathName.includes("/request") && "text-white"}`}
+                  className={`${
+                    pathName.includes("/request") &&
+                    "text-white pb-2 border-b-4 border-solid border-white rounded"
+                  }`}
                 />
               </Link>
             </li>

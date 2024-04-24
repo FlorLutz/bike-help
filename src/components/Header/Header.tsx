@@ -3,7 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBicycle, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHandshakeSimple, faBars } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 export default function Header() {
@@ -11,15 +11,21 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-emerald-500 flex place-content-between text-4xl py-4 h-20px fixed top-0 left-0 w-full">
-        <Link href="/" className="flex">
-          <FontAwesomeIcon
-            icon={faBicycle}
-            className="mx-4 mt-[2px]"
-          ></FontAwesomeIcon>{" "}
-          <p className="font-bold font-serif">Bike Help</p>
-        </Link>
-        <div className="flex items-center justify-between">
+      <header className="bg-emerald-500 text-4xl py-4 h-[72px] fixed top-0 left-0 w-full z-10">
+        <div className="flex justify-center">
+          <Link href="/" className="flex">
+            <FontAwesomeIcon
+              icon={faHandshakeSimple}
+              className="mx-4 mt-[2px]"
+            ></FontAwesomeIcon>{" "}
+            <p className="font-bold font-serif mx-4">Bike Help</p>
+            <FontAwesomeIcon
+              icon={faHandshakeSimple}
+              className="mx-4 mt-[2px]"
+            ></FontAwesomeIcon>{" "}
+          </Link>
+        </div>
+        <div className="flex items-center justify-between absolute right-2 top-4">
           <nav>
             <section className="MOBILE-MENU flex lg:hidden">
               <button
@@ -67,11 +73,11 @@ export default function Header() {
         position: absolute;
         width: 180px;
         height: 200px;
-        top: 73px;
+        top: 52px;
         right: 5px;
         background: white;
         border: solid 3px #022c22;
-        border-radius: 10%;
+        border-radius: 0.25rem;
         z-index: 10;
         display: flex;
         flex-direction: column;

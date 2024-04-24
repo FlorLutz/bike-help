@@ -2,7 +2,7 @@ import React from "react";
 import { Marker } from "react-map-gl";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faShop } from "@fortawesome/free-solid-svg-icons";
+import { faShop } from "@fortawesome/free-solid-svg-icons";
 
 interface MarkerPOIProps {
   poiData: {
@@ -36,9 +36,9 @@ export default function MarkerPOI({
             e.stopPropagation();
             handleAdditionalInfo(poiData, type);
           }}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center text-emerald-800"
         >
-          <strong>POI</strong>
+          <strong>poi</strong>
           <FontAwesomeIcon
             icon={faShop}
             className="text-2xl -z-1"

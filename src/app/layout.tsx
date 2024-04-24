@@ -8,6 +8,7 @@ import { Josefin_Sans, Kaushan_Script } from "next/font/google";
 const josefinSans = Josefin_Sans({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-josefinsans",
 });
 
 const kaushanScript = Kaushan_Script({
@@ -30,9 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${josefinSans.className} ${kaushanScript.variable} font sans`}
+      className={`${josefinSans.variable} ${kaushanScript.variable} font sans`}
     >
-      <body className="text-emerald-950 bg-emerald-200">
+      <body className="text-emerald-950 bg-emerald-200 font-sans">
         <AuthProvider>
           <Layout>{children}</Layout>
         </AuthProvider>

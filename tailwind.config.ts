@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         serif: ["var(--font-kaushanscript)"],
+        sans: ["var(--font-josefinsans)"],
       },
     },
 
