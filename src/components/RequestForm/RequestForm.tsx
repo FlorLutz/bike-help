@@ -109,11 +109,9 @@ export default function RequestForm({
 
   return (
     <section>
-      {editMode ? (
-        <h1 className="font-bold text-xl mb-6">Edit Request</h1>
-      ) : (
-        <h1 className="font-bold text-xl mb-6">New Request</h1>
-      )}
+      <h1 className="font-bold text-xl mb-6 font-serif">
+        {editMode ? "Edit Request" : "New Request"}
+      </h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <label htmlFor="problem">What part is broken/not working:*</label>
@@ -134,6 +132,17 @@ export default function RequestForm({
           <option>breaks stopped working</option>
           <option>shifters stopped working</option>
         </datalist>
+        <label htmlFor="phonenumber">your phone number:*</label>
+        <input
+          defaultValue={existingRequestData?.phonenumber}
+          type="text"
+          name="phonenumber"
+          id="phonennumber"
+          required
+          minLength={10}
+          maxLength={40}
+          placeholder="e.g. 0049-1234 567890"
+        />
         <InteractiveBikeMap
           handleMapClick={handleMapClick}
           handleDragEnd={handleDragEnd}
@@ -169,7 +178,7 @@ export default function RequestForm({
         />
         <button
           type="submit"
-          className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
+          className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
         >
           {editMode ? "Save edit" : "Request help"}
         </button>

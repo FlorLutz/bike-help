@@ -10,7 +10,7 @@ export default async function ProfilePage() {
 
   return (
     <main className="m-4">
-      <h1 className="font-bold text-xl mb-6">Profile</h1>
+      <h1 className="font-bold text-xl mb-6 font-serif">Profile</h1>
       {session ? (
         <>
           <Image

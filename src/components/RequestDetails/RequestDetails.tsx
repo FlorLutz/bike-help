@@ -94,7 +94,9 @@ export default function RequestDetails({
     />
   ) : (
     <section className="m-4">
-      <h1 className="font-bold text-xl mt-4 mb-6">Request Details</h1>
+      <h1 className="font-bold text-xl mt-4 mb-6 font-serif">
+        Request Details
+      </h1>
 
       <p className="font-bold">Created by user:</p>
       <p>{userData.name}</p>
@@ -117,6 +119,10 @@ export default function RequestDetails({
           Click here to create a new one
         </button>
       )}
+
+      <p className="font-bold">phone number:</p>
+      <p>{requestDetailsData.phonenumber}</p>
+
       <p className="font-bold">Last changed:</p>
       <p>{getMyDateString(requestDetailsData.date)}</p>
 
@@ -185,7 +191,7 @@ export default function RequestDetails({
             <button
               type="button"
               onClick={() => setEditMode(true)}
-              className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
+              className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
             >
               <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
               edit
@@ -196,7 +202,7 @@ export default function RequestDetails({
                 handleDelete(requestDetailsData._id, requestDetailsData.userId);
                 redirectServer("/request");
               }}
-              className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
+              className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
             >
               <FontAwesomeIcon icon={faTrash} className="mr-2" />
               delete
@@ -204,7 +210,7 @@ export default function RequestDetails({
             <button
               type="button"
               onClick={() => handleResolved(requestDetailsData._id)}
-              className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
+              className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
             >
               <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
               mark as resolved
