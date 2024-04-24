@@ -14,6 +14,11 @@ export default function Aboutpage() {
         .
       </p>
       <p>
+        The approach is to create a mobile first app, that works well in
+        portrait mode. Some of the technologies used were: NextJS AppRputer,
+        React, Typescript, Tailwind, MapBox and MongoDB with mongoose.
+      </p>
+      <p>
         As for now, there are no intentions for offering this app for users.
         Feel free to get in touch with me. Any feedback is gladly welcome.
         Contact details can be found in the{" "}

@@ -4,7 +4,6 @@ import Helprequest from "../../../../../../db/models/Helprequest";
 
 export async function GET(request: NextRequest, { params }: any) {
   await dbConnect();
-  console.log("PARAMSSESSION", params.userId);
 
   const helprequests = await Helprequest.find({
     isOpen: true,

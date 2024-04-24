@@ -12,7 +12,6 @@ export default function ProfilePage() {
       redirect("api/auth/signin?callbackURL=/client");
     },
   });
-  console.log(session);
 
   return (
     <>

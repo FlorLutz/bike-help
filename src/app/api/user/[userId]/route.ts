@@ -4,7 +4,6 @@ import User from "../../../../../db/models/User";
 
 export async function GET(request: NextRequest, { params }: any) {
   await dbConnect();
-  console.log("PARAMSSESSION", params.userId);
 
   const user = await User.findById(params.userId);
   if (user) {

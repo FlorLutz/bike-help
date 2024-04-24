@@ -38,15 +38,20 @@ export default function Header() {
               </button>
               <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
                 {" "}
-                <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-evenly min-h-[200px] text-xl font-bold">
+                <ul
+                  className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-evenly min-h-[200px] text-xl font-bold"
+                  onClick={() => setIsNavOpen(false)}
+                >
                   <li>
-                    <Link href="/help">help</Link>
+                    <Link href="/help" className="grow">
+                      - help -
+                    </Link>
                   </li>
                   <li>
-                    <Link href="/about">about</Link>
+                    <Link href="/about">- about -</Link>
                   </li>
                   <li>
-                    <Link href="/imprint">imprint</Link>
+                    <Link href="/imprint">- imprint -</Link>
                   </li>
                 </ul>
               </div>
