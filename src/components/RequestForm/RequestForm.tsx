@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
+import InteractiveBikeMap from "../InteractiveBikeMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -102,7 +102,7 @@ export default function RequestForm({
   }, []);
 
   return (
-    <section className="mx-4 my-8 flex flex-col items-center gap-4 text-lg">
+    <section className="px-4 mx-4 my-8 flex flex-col items-center gap-4 text-lg">
       <h1 className="font-bold text-2xl mb-6 font-serif">
         {editMode ? "Edit Request" : "New Request"}
       </h1>

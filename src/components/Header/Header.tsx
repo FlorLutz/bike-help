@@ -7,7 +7,7 @@ import { faHandshakeSimple, faBars } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 export default function Header() {
-  const [isNavOpen, setIsNavOpen] = useState(false); // initiate isNavOpen state with false
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>
@@ -16,21 +16,15 @@ export default function Header() {
           <Link href="/" className="flex">
             <FontAwesomeIcon
               icon={faHandshakeSimple}
-              className="mx-4 mt-[2px]"
+              className="mt-1"
             ></FontAwesomeIcon>{" "}
-            <p className="font-bold font-serif mx-4">Bike Help</p>
-            <FontAwesomeIcon
-              icon={faHandshakeSimple}
-              className="mx-4 mt-[2px]"
-            ></FontAwesomeIcon>{" "}
+            <p className="font-bold font-serif ml-4">Bike Help</p>
           </Link>
         </div>
         <div className="flex items-center justify-between absolute right-2 top-4">
           <nav>
             <section className="MOBILE-MENU flex lg:hidden">
-              <button
-                onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
-              >
+              <button onClick={() => setIsNavOpen((prev) => !prev)}>
                 <FontAwesomeIcon
                   icon={faBars}
                   className="mr-4"

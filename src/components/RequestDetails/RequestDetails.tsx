@@ -7,6 +7,7 @@ import {
   faCircleCheck,
   faScrewdriverWrench,
   faLightbulb,
+  faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 import InteractiveMap, {
   NavigationControl,
@@ -22,6 +23,7 @@ import useSWR from "swr";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const fetcher = (args: any) => fetch(args).then((res) => res.json());
 
@@ -33,6 +35,18 @@ export default function RequestDetails({
   const userId = session?.data?.user?.userId;
 
   const [editMode, setEditMode] = useState(false);
+
+  //viewport adjustment to windowsize
+  const [viewport, setViewport]: [number[] | any, Function] = useState([]);
+  function getViewport() {
+    if (typeof window !== "undefined") {
+      const currentViewport = [window.innerWidth, window.innerHeight];
+      setViewport(currentViewport);
+    }
+  }
+  useEffect(() => {
+    getViewport();
+  }, []);
 
   const {
     data: userData,
@@ -89,45 +103,35 @@ export default function RequestDetails({
       }}
     />
   ) : (
-    <section className="mx-4 my-8 flex flex-col items-center gap-4 text-lg">
+    <section className="px-4 mx-4 my-8 flex flex-col items-center gap-4 text-lg">
       <h1 className="font-bold text-2xl mb-6 font-serif">Request Details</h1>
-      <div>
-        {!requestDetailsData.isOpen && (
-          <button
-            onClick={() => redirectServer("/request")}
-            className="w-[400px] px-4 flex gap-4 border-4 rounded border-emerald-950 bg-emerald-500 mb-8"
-          >
-            <FontAwesomeIcon icon={faLightbulb} className="text-2xl mt-2" />
-            This request has been solved. <br />
-            Click here to create a new one
-          </button>
-        )}
-        <div className="w-[400px] flex flex-col gap-4 mb-4">
-          <div className="flex justify-between">
-            <div className="flex flex-col gap-4">
-              <div>
-                <p className="font-bold">Created by user:</p>
-                <p>{userData.name}</p>
-              </div>
-              <div
-                onClick={() => {
-                  navigator.clipboard.writeText("HALLO");
-                }}
-              >
-                <p className="font-bold">phone number (click to copy):</p>
-                <p>{requestDetailsData.phonenumber}</p>
-              </div>
-            </div>
-
-            <Image
-              src={userData.image}
-              alt="profile foto"
-              width={150}
-              height={150}
-              className="rounded-full"
-            />
+      {!requestDetailsData.isOpen && (
+        <button
+          onClick={() => redirectServer("/request")}
+          className="w-[400px] px-4 flex gap-4 border-4 rounded border-emerald-950 bg-emerald-500 mb-8"
+        >
+          <FontAwesomeIcon icon={faLightbulb} className="text-2xl mt-2" />
+          This request has been solved. <br />
+          Click here to create a new one
+        </button>
+      )}
+      <div className="flex flex-row flex-wrap items-center max-w-xl">
+        <div className="flex flex-col gap-4 mb-4">
+          <div>
+            <p className="font-bold">Created by user:</p>
+            <p>{userData.name}</p>
           </div>
-
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(requestDetailsData.phonenumber);
+            }}
+          >
+            <p className="font-bold text-left">phone number:</p>
+            <p className="text-left">
+              {requestDetailsData.phonenumber}
+              <FontAwesomeIcon icon={faCopy} className="ml-2" />
+            </p>
+          </button>
           <div>
             <p className="font-bold">Last changed:</p>
             <p>{getMyDateString(requestDetailsData.date)}</p>
@@ -158,81 +162,85 @@ export default function RequestDetails({
             </div>
           )}
         </div>
-
-        <InteractiveMap
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
-          mapLib={import("mapbox-gl")}
-          initialViewState={{
-            latitude: requestDetailsData.latitude,
-            longitude: requestDetailsData.longitude,
-            zoom: 16,
-          }}
-          style={{ width: 400, height: 400 }} // adjusts to screensize
-          mapStyle="mapbox://styles/mapbox/streets-v9"
-        >
-          <Marker
-            longitude={requestDetailsData.longitude}
-            latitude={requestDetailsData.latitude}
-            anchor="center"
-          >
-            <div className="flex flex-col items-center text-orange-700">
-              <strong>HELP!</strong>
-              <FontAwesomeIcon
-                icon={faScrewdriverWrench}
-                className="text-2xl"
-              ></FontAwesomeIcon>
-            </div>
-          </Marker>
-          <NavigationControl />
-          <GeolocateControl />
-        </InteractiveMap>
-        {requestDetailsData.isOpen && requestDetailsData.userId === userId && (
-          <>
-            <div className="w-[400px] px-4 flex gap-4 border-4 rounded border-emerald-950 my-4">
-              <FontAwesomeIcon icon={faLightbulb} className="text-2xl mt-2" />
-              <p>
-                This is your current open request. If you want to create a new
-                one, please delete this one or mark it as resolved first!
-              </p>
-            </div>
-            <div className="flex place-content-between w-[400px]">
-              <button
-                type="button"
-                onClick={() => setEditMode(true)}
-                className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
-              >
-                <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
-                edit
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  handleDelete(
-                    requestDetailsData._id,
-                    requestDetailsData.userId
-                  );
-                  redirectServer("/request");
-                }}
-                className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
-              >
-                <FontAwesomeIcon icon={faTrash} className="mr-2" />
-                delete
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  handleResolved(requestDetailsData._id);
-                  redirectServer(`/request/${requestDetailsData._id}`);
-                }}
-                className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
-              >
-                <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
-                mark as resolved
-              </button>
-            </div>
-          </>
-        )}
+        <Image
+          src={userData.image}
+          alt="profile foto"
+          width={200}
+          height={200}
+          className="rounded-full self-start"
+        />
       </div>
+
+      <InteractiveMap
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
+        mapLib={import("mapbox-gl")}
+        initialViewState={{
+          latitude: requestDetailsData.latitude,
+          longitude: requestDetailsData.longitude,
+          zoom: 17,
+        }}
+        style={{ width: viewport[0] - 20, height: viewport[1] - 300 }} // adjusts to screensize
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+      >
+        <Marker
+          longitude={requestDetailsData.longitude}
+          latitude={requestDetailsData.latitude}
+          anchor="center"
+        >
+          <div className="flex flex-col items-center text-orange-700">
+            <strong>HELP!</strong>
+            <FontAwesomeIcon
+              icon={faScrewdriverWrench}
+              className="text-2xl"
+            ></FontAwesomeIcon>
+          </div>
+        </Marker>
+        <NavigationControl />
+        <GeolocateControl />
+      </InteractiveMap>
+      {requestDetailsData.isOpen && requestDetailsData.userId === userId && (
+        <>
+          <div className="max-w-xl px-4 flex gap-4 border-4 rounded border-emerald-950 my-4">
+            <FontAwesomeIcon icon={faLightbulb} className="text-2xl mt-2" />
+            <p>
+              This is your current open request. If you want to create a new
+              one, please delete this one or mark it as resolved first!
+            </p>
+          </div>
+          <div className="flex place-content-between max-w-xl gap-8">
+            <button
+              type="button"
+              onClick={() => setEditMode(true)}
+              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow"
+            >
+              <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
+              edit
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                handleDelete(requestDetailsData._id, requestDetailsData.userId);
+                redirectServer("/request");
+              }}
+              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow"
+            >
+              <FontAwesomeIcon icon={faTrash} className="mr-2" />
+              delete
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                redirectServer(`/request/${requestDetailsData._id}`);
+                handleResolved(requestDetailsData._id);
+              }}
+              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow"
+            >
+              <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
+              mark as resolved
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 }

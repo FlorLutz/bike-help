@@ -26,6 +26,19 @@ export default function InteractiveBikeMap({
     zoom: number | undefined;
   }
 
+  //viewport adjustment to windowsize
+  const [viewport, setViewport]: [number[] | any, Function] = useState([]);
+
+  function getViewport() {
+    if (typeof window !== "undefined") {
+      const currentViewport = [window.innerWidth, window.innerHeight];
+      setViewport(currentViewport);
+    }
+  }
+  useEffect(() => {
+    getViewport();
+  }, []);
+
   const [initialViewState, setInitialViewState]: [IInitialViewState, Function] =
     useState({ latitude: undefined, longitude: undefined, zoom: undefined });
   useEffect(() => {
@@ -41,7 +54,7 @@ export default function InteractiveBikeMap({
           setInitialViewState({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
-            zoom: 16,
+            zoom: 17,
           });
         });
       } else {
@@ -61,7 +74,7 @@ export default function InteractiveBikeMap({
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
       mapLib={import("mapbox-gl")}
       initialViewState={initialViewState}
-      style={{ width: 400, height: 400 }} // adjusts to screensize
+      style={{ width: viewport[0] - 20, height: viewport[1] - 300 }} // adjusts to screensize
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
       {marker.longitude && (

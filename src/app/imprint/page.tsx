@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Helppage() {
   return (
-    <main className="my-8 flex flex-col items-center gap-4 text-lg max-w-[400px] text-center mx-auto">
+    <main className="px-4 my-8 flex flex-col items-center gap-4 text-lg max-w-[400px] text-center mx-auto">
       <h1 className="font-bold text-2xl mb-6 font-serif">Imprint</h1>
       <p>Florian Lutz © 2024</p>
       <Image
