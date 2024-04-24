@@ -19,7 +19,6 @@ export default function RequestForm({
 }) {
   //when creating a new request link it to the user too (by adding its id to the array of requests)
   const router = useRouter();
-  console.log("editMode", editMode);
   async function handleSubmit(event: any) {
     event.preventDefault();
     if (!marker.longitude) {
@@ -38,7 +37,6 @@ export default function RequestForm({
       latitude,
       userId: userId,
     };
-    console.log("helpRequestData", helpRequestData);
     if (!editMode) {
       const response = await fetch("api/requests", {
         method: "POST",
@@ -48,7 +46,6 @@ export default function RequestForm({
         body: JSON.stringify(helpRequestData),
       });
       if (response.ok) {
-        console.log("response ok");
         toast.success(
           "You have successfully created a new request. You can view, edit and delete it on this page."
         );
@@ -67,7 +64,6 @@ export default function RequestForm({
         }
       );
       if (response.ok) {
-        console.log("response ok");
         toast.success(
           "You have successfully updated this request. You can still view, edit and delete it on this page."
         );
@@ -92,12 +88,9 @@ export default function RequestForm({
   }
 
   function handleDragEnd(event: MarkerDragEvent) {
-    console.log("dragendevent", event.lngLat);
     const { lng, lat } = event.lngLat;
     setMarker({ longitude: lng, latitude: lat });
   }
-
-  // console.log("exlong", existingRequestData.longitude);
 
   useEffect(() => {
     editMode &&
