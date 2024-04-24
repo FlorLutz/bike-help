@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AuthProvider from "./context/AuthProvider";
 import "./globals.css";
 import React from "react";
+import Layout from "@/components/Layout/Layout";
 
 export const metadata: Metadata = {
   title: "Bike Help",
@@ -11,12 +12,14 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode | any;
 }>) {
   return (
     <html lang="en">
       <body className="text-emerald-950 bg-emerald-200">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Layout>{children}</Layout>
+        </AuthProvider>
       </body>
     </html>
   );
