@@ -10,7 +10,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 
-interface IPopupInfo {
+interface PopupInfo {
   longitude: number;
   latitude: number;
   type: string;
@@ -27,15 +27,15 @@ interface IPopupInfo {
   userId: string;
 }
 
-interface IPopupMarkerProps {
-  popupInfo: IPopupInfo;
+interface PopupMarkerProps {
+  popupInfo: PopupInfo;
   setPopupInfo: Function;
 }
 
 export default function PopupMarker({
   popupInfo,
   setPopupInfo,
-}: IPopupMarkerProps) {
+}: PopupMarkerProps) {
   const {
     longitude,
     latitude,

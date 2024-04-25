@@ -3,7 +3,7 @@ import { Marker } from "react-map-gl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
 
-interface IMarkerRequestProps {
+interface MarkerRequestProps {
   requestData: {
     _id: string;
     longitude: number;
@@ -24,7 +24,7 @@ export default function MarkerRequest({
   requestData,
   handleAdditionalInfo,
   type,
-}: IMarkerRequestProps) {
+}: MarkerRequestProps) {
   return (
     <Marker
       longitude={requestData.longitude}

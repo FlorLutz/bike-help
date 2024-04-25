@@ -23,7 +23,6 @@ import useSWR from "swr";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
-import { Session } from "@/lib/interfaces";
 
 const fetcher = (args: any) => fetch(args).then((res) => res.json());
 

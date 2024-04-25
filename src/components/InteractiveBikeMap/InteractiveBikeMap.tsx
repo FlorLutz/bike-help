@@ -9,7 +9,7 @@ import InteractiveMap, {
   MarkerDragEvent,
 } from "react-map-gl";
 
-interface IInteractiveBikeMapProps {
+interface InteractiveBikeMapProps {
   handleDragEnd: ((e: MarkerDragEvent) => void) | undefined;
   handleMapClick: ((e: MapLayerMouseEvent) => void) | undefined;
   marker: { longitude: number; latitude: number };
@@ -19,8 +19,8 @@ export default function InteractiveBikeMap({
   handleMapClick,
   handleDragEnd,
   marker,
-}: IInteractiveBikeMapProps) {
-  interface IInitialViewState {
+}: InteractiveBikeMapProps) {
+  interface InitialViewState {
     latitude: number | undefined;
     longitude: number | undefined;
     zoom: number | undefined;
@@ -39,7 +39,7 @@ export default function InteractiveBikeMap({
     getViewport();
   }, []);
 
-  const [initialViewState, setInitialViewState]: [IInitialViewState, Function] =
+  const [initialViewState, setInitialViewState]: [InitialViewState, Function] =
     useState({ latitude: undefined, longitude: undefined, zoom: undefined });
   useEffect(() => {
     if (marker.longitude) {
@@ -77,7 +77,7 @@ export default function InteractiveBikeMap({
       style={{
         width: Math.min(viewport[0], viewport[1], 626) - 50,
         height: Math.min(viewport[0], viewport[1], 626) - 50,
-      }} // adjusts to screensize
+      }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
       {marker.longitude && (
