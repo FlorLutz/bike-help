@@ -27,10 +27,13 @@ export default async function ProfileHistory() {
     <section className="mt-8 mb-4">
       <h2 className="font-bold text-xl mb-4 text-center">Your History</h2>
       <section>
-        <p className="text-center">{`You have ${solvedRequests.length} past request(s):`}</p>
-        <div className="flex flex-row flex-wrap gap-8 justify-center">
+        <p className="text-center m-4">{`You have ${solvedRequests.length} past request(s):`}</p>
+        <div className="flex flex-row flex-wrap gap-4 justify-center">
           {solvedRequests.map((solvedRequest: any) => (
-            <section key={solvedRequest._id} className="my-8 w-[220px]">
+            <section
+              key={solvedRequest._id}
+              className="p-4 w-[220px] border-4 border-emerald-950 rounded"
+            >
               <p className="font-bold">problem</p>
               <p>{solvedRequest.problem}</p>
               <p className="font-bold">created/modified</p>

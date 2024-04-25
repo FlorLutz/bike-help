@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
-  faInfo,
   faWrench,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
@@ -50,7 +49,7 @@ export default function PopupMarker({
     locationDetails,
     tools,
     requestId,
-    userId,
+    // userId,
   } = popupInfo;
   return (
     <Popup
@@ -71,13 +70,9 @@ export default function PopupMarker({
         {date && (
           <>
             <FontAwesomeIcon icon={faClock} />
-            <p>
-              {`created: ${getMyDateString(date)}`}
-              {/* by user with id: ${userId}`} */}
-            </p>
+            <p>{`created: ${getMyDateString(date)}`}</p>
           </>
         )}
-        <FontAwesomeIcon icon={faInfo} />
         <p>{description}</p>
         {adress && (
           <>

@@ -10,8 +10,9 @@ import useSWR from "swr";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Bikemap() {
+  //map center on location
   const [initialViewState, setInitialViewState] = useState({});
-  useEffect(() => {
+  function getViewstate() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setInitialViewState({
@@ -23,6 +24,20 @@ export default function Bikemap() {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
+  }
+
+  //viewport adjustment to windowsize
+  const [viewport, setViewport] = useState([]);
+  function getViewport() {
+    if (typeof window !== "undefined") {
+      const currentViewport = [window.innerWidth, window.innerHeight];
+      setViewport(currentViewport);
+    }
+  }
+
+  useEffect(() => {
+    getViewport();
+    getViewstate();
   }, []);
 
   const {
@@ -53,21 +68,9 @@ export default function Bikemap() {
       locationDetails: markerData.locationDetails,
       tools: markerData.tools,
       requestId: markerData._id,
-      userId: markerData.userId,
+      // userId: markerData.userId,
     });
   }
-
-  //viewport adjustment to windowsize
-  const [viewport, setViewport] = useState([]);
-  function getViewport() {
-    if (typeof window !== "undefined") {
-      const currentViewport = [window.innerWidth, window.innerHeight];
-      setViewport(currentViewport);
-    }
-  }
-  useEffect(() => {
-    getViewport();
-  }, []);
 
   if (!openRequestsData || !poiData || !initialViewState.latitude) {
     return;

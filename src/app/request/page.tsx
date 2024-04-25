@@ -5,7 +5,6 @@ import RequestForm from "@/components/RequestForm/RequestForm";
 import LinkButton from "@/components/LinkButton/LinkButton";
 import dbConnect from "../../../db/connect";
 import { redirect } from "next/navigation";
-import { Session } from "@/lib/interfaces";
 
 import Helprequest from "../../../db/models/Helprequest";
 export const revalidate = 0.5;

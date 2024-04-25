@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-emerald-500 text-4xl py-4 h-[72px] fixed top-0 left-0 w-full z-10">
+      <header className="bg-emerald-500 text-4xl py-3 h-[72px] fixed top-0 left-0 w-full z-10">
         <div className="flex justify-center">
           <Link href="/" className="flex">
             <FontAwesomeIcon

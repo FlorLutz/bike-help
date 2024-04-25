@@ -36,7 +36,7 @@ export default function MarkerRequest({
           e.stopPropagation();
           handleAdditionalInfo(requestData, type);
         }}
-        className="flex flex-col items-center z-10 text-orange-700"
+        className="flex flex-col items-center z-10 text-orange-950"
       >
         <strong>HELP!</strong>
         <FontAwesomeIcon

@@ -14,34 +14,30 @@ interface InteractiveBikeMapProps {
   handleMapClick: ((e: MapLayerMouseEvent) => void) | undefined;
   marker: { longitude: number; latitude: number };
 }
+interface InitialViewState {
+  latitude: number | undefined;
+  longitude: number | undefined;
+  zoom: number | undefined;
+}
 
 export default function InteractiveBikeMap({
   handleMapClick,
   handleDragEnd,
   marker,
 }: InteractiveBikeMapProps) {
-  interface InitialViewState {
-    latitude: number | undefined;
-    longitude: number | undefined;
-    zoom: number | undefined;
-  }
-
   //viewport adjustment to windowsize
   const [viewport, setViewport]: [number[], Function] = useState([]);
-
   function getViewport() {
     if (typeof window !== "undefined") {
       const currentViewport = [window.innerWidth, window.innerHeight];
       setViewport(currentViewport);
     }
   }
-  useEffect(() => {
-    getViewport();
-  }, []);
 
+  //viewstate adjustment to marker
   const [initialViewState, setInitialViewState]: [InitialViewState, Function] =
     useState({ latitude: undefined, longitude: undefined, zoom: undefined });
-  useEffect(() => {
+  function getViewstate() {
     if (marker.longitude) {
       setInitialViewState({
         latitude: marker.latitude,
@@ -61,6 +57,11 @@ export default function InteractiveBikeMap({
         console.error("Geolocation is not supported by this browser.");
       }
     }
+  }
+
+  useEffect(() => {
+    getViewport();
+    getViewstate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -88,7 +89,7 @@ export default function InteractiveBikeMap({
           onDragEnd={handleDragEnd}
           anchor="center"
         >
-          <div className="flex flex-col items-center text-orange-700">
+          <div className="flex flex-col items-center text-orange-950">
             <strong>HELP!</strong>
             <FontAwesomeIcon
               icon={faScrewdriverWrench}

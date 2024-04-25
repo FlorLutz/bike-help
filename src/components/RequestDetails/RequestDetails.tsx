@@ -190,7 +190,7 @@ export default function RequestDetails({
           latitude={requestDetailsData.latitude}
           anchor="center"
         >
-          <div className="flex flex-col items-center text-orange-700">
+          <div className="flex flex-col items-center text-orange-950">
             <strong>HELP!</strong>
             <FontAwesomeIcon
               icon={faScrewdriverWrench}

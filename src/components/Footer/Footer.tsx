@@ -19,7 +19,6 @@ export default function Footer() {
       <footer className="bg-emerald-500 fixed w-full bottom-0 py-4 h-[72px] z-10">
         <nav>
           <ul className="flex place-content-evenly text-4xl">
-            {/* styling not yet working, the whole field should be clickable */}
             <Link href="/profile" className="width-1/3 block">
               <li>
                 <FontAwesomeIcon
