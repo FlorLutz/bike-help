@@ -27,7 +27,7 @@ export default function InteractiveBikeMap({
   }
 
   //viewport adjustment to windowsize
-  const [viewport, setViewport]: [number[] | any, Function] = useState([]);
+  const [viewport, setViewport]: [number[], Function] = useState([]);
 
   function getViewport() {
     if (typeof window !== "undefined") {

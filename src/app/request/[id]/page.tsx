@@ -4,9 +4,15 @@ import RequestDetails from "@/components/RequestDetails/RequestDetails";
 import useSWR from "swr";
 import { redirectServer } from "../../../lib/serverActions";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (args: string) => fetch(args).then((res) => res.json());
 
-export default function Request({ params }) {
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+export default function Request({ params }: Params) {
   const {
     data: requestData,
     error,

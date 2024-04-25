@@ -5,16 +5,17 @@ import Helprequest from "../../../db/models/Helprequest";
 import { options } from "../../app/api/auth/[...nextauth]/options";
 import LinkButton from "../LinkButton/LinkButton";
 import { getMyDateString } from "../../lib/clientActions";
+import { Session } from "@/lib/interfaces";
 
 export default async function ProfileHistory() {
-  const session: any = await getServerSession(options);
+  const session: Session | null | undefined = await getServerSession(options);
 
   let solvedRequests: any;
   try {
     await dbConnect();
     solvedRequests = await Helprequest.find({
       isOpen: false,
-      userId: session.user.userId,
+      userId: session?.user.userId,
     });
   } catch (error) {
     console.error(error);

@@ -14,8 +14,8 @@ export default function RequestForm({
 }: {
   userId: string;
   editMode: boolean | undefined;
-  existingRequestData: any;
-  handleSaveEdit: any;
+  existingRequestData: any | undefined;
+  handleSaveEdit: Function | null;
 }) {
   //when creating a new request link it to the user too (by adding its id to the array of requests)
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function RequestForm({
         router.refresh();
       }
     } else {
-      handleSaveEdit();
+      handleSaveEdit && handleSaveEdit();
       const response = await fetch(
         `../api/requests/byrequestid/${existingRequestData._id}`,
         {
