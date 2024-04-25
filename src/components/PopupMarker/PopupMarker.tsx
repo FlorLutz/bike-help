@@ -1,6 +1,7 @@
 import React from "react";
 import { Popup } from "react-map-gl";
-import { getMyDateString } from "../../lib/clientActions";
+// import { getMyDateString } from "../../lib/clientActions";
+import { getTimeDifference } from "../../lib/clientActions";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -70,7 +71,7 @@ export default function PopupMarker({
         {date && (
           <>
             <FontAwesomeIcon icon={faClock} />
-            <p>{`created: ${getMyDateString(date)}`}</p>
+            <p>{`created: ${getTimeDifference(date)} ago`}</p>
           </>
         )}
         <p>{description}</p>
