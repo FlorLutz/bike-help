@@ -5,6 +5,7 @@ import { options } from "../api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
 import ProfileHistory from "../../components/ProfileHistory/ProfileHistory";
 import { Session } from "@/lib/interfaces";
+import { RotatingLines } from "react-loader-spinner";
 
 export default async function ProfilePage() {
   const session: Session | null | undefined = await getServerSession(options);
@@ -12,6 +13,7 @@ export default async function ProfilePage() {
   return (
     <main className="mx-4 my-8 flex flex-col items-center gap-4 text-lg">
       <h1 className="font-bold text-2xl mb-6 font-serif">Profile</h1>
+
       {session ? (
         <>
           <div className="flex flex-col gap-4 items-center sm:flex-row sm:gap-8">

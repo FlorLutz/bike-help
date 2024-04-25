@@ -65,7 +65,6 @@ export default function PopupMarker({
       <section className="text-lg space-y-1 font-sans text-emerald-950 flex flex-col justify-center">
         {title && <h2 className="font-bold text-xl">{title}</h2>}
         <h2 className="font-bold text-lg">{problem}</h2>
-
         <Image
           className="rounded-full self-center"
           src={

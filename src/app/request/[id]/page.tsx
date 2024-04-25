@@ -3,6 +3,7 @@ import React from "react";
 import RequestDetails from "@/components/RequestDetails/RequestDetails";
 import useSWR from "swr";
 import { redirectServer } from "../../../lib/serverActions";
+import { RotatingLines } from "react-loader-spinner";
 
 const fetcher = (args: string) => fetch(args).then((res) => res.json());
 
@@ -23,7 +24,17 @@ export default function Request({ params }: Params) {
     console.error(error);
   }
   if (isLoading) {
-    return <p>request details are loading</p>;
+    return (
+      <div className="w-[300px] m-auto -translate-x-1/4">
+        <RotatingLines
+          visible={true}
+          width="300"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+        />
+      </div>
+    );
   }
   if (!requestData) {
     redirectServer("/request");
