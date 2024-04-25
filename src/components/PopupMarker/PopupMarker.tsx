@@ -1,6 +1,5 @@
 import React from "react";
 import { Popup } from "react-map-gl";
-// import { getMyDateString } from "../../lib/clientActions";
 import { getTimeDifference } from "../../lib/clientActions";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +8,7 @@ import {
   faWrench,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 interface PopupInfo {
   longitude: number;
@@ -62,9 +62,23 @@ export default function PopupMarker({
         setPopupInfo(null);
       }}
     >
-      <section className="text-lg space-y-1 font-sans text-emerald-950">
+      <section className="text-lg space-y-1 font-sans text-emerald-950 flex flex-col justify-center">
         {title && <h2 className="font-bold text-xl">{title}</h2>}
         <h2 className="font-bold text-lg">{problem}</h2>
+
+        <Image
+          className="rounded-full self-center"
+          src={
+            title
+              ? description.includes("DIY")
+                ? "/diy.jpg"
+                : "/repair-station.jpg"
+              : "/broken-bike.jpg"
+          }
+          width={150}
+          height={150}
+          alt="foto to ilustrate marker type"
+        />
         <p>
           {type === "Point of Interest" ? "*get help here" : "*help request"}
         </p>
