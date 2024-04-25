@@ -115,7 +115,14 @@ export default function RequestDetails({
           Click here to create a new one
         </button>
       )}
-      <div className="flex flex-row flex-wrap items-center max-w-xl">
+      <div className="flex flex-col items-center max-w-xl sm:flex-row-reverse flex-wrap">
+        <Image
+          src={userData.image}
+          alt="profile foto"
+          width={200}
+          height={200}
+          className="rounded-full self-start mb-4"
+        />
         <div className="flex flex-col gap-4 mb-4">
           <div>
             <p className="font-bold">Created by user:</p>
@@ -162,13 +169,6 @@ export default function RequestDetails({
             </div>
           )}
         </div>
-        <Image
-          src={userData.image}
-          alt="profile foto"
-          width={200}
-          height={200}
-          className="rounded-full self-start"
-        />
       </div>
 
       <InteractiveMap

@@ -13,16 +13,20 @@ export default async function ProfilePage() {
       <h1 className="font-bold text-2xl mb-6 font-serif">Profile</h1>
       {session ? (
         <>
-          <Image
-            src={session?.user.image}
-            alt="profile foto"
-            width={150}
-            height={150}
-            className="rounded-full"
-          />
-          <p>You are signed in as</p>
-          <strong className="mb-2">{session?.user.name}</strong>
-          <LinkButton href="api/auth/signout" text="SignOut here" />
+          <div className="flex flex-col gap-4 items-center sm:flex-row sm:gap-8">
+            <Image
+              src={session?.user.image}
+              alt="profile foto"
+              width={150}
+              height={150}
+              className="rounded-full"
+            />
+            <div className="flex flex-col">
+              <p>You are signed in as</p>
+              <strong className="mb-2 text-center">{session?.user.name}</strong>
+              <LinkButton href="api/auth/signout" text="SignOut here" />
+            </div>
+          </div>
           <ProfileHistory />
         </>
       ) : (

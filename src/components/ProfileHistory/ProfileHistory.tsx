@@ -24,7 +24,7 @@ export default async function ProfileHistory() {
     <p className="mt-8">You have no solved requests so far.</p>
   ) : (
     <section className="mt-8 mb-4">
-      <h2 className="font-bold text-lg mb-4 text-center">Your History</h2>
+      <h2 className="font-bold text-xl mb-4 text-center">Your History</h2>
       <section>
         <p className="text-center">{`You have ${solvedRequests.length} past request(s):`}</p>
         <div className="flex flex-row flex-wrap gap-8 justify-center">

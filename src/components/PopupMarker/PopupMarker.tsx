@@ -92,7 +92,12 @@ export default function PopupMarker({
           </>
         )}
         {url && (
-          <Link href={url} className="text-emerald-500 font-bold">
+          <Link
+            href={url}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-emerald-500 font-bold"
+          >
             Go to website
           </Link>
         )}
@@ -111,6 +116,8 @@ export default function PopupMarker({
         {problem && (
           <Link
             href={`/request/${requestId}`}
+            rel="noopener noreferrer"
+            target="_blank"
             className="text-emerald-500 font-bold"
           >
             Show details
