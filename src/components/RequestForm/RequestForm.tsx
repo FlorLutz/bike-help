@@ -110,7 +110,7 @@ export default function RequestForm({
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <label htmlFor="problem">What part is broken/not working:*</label>
         <input
-          className="mb-2"
+          className="mb-2 px-2 py-1 rounded"
           defaultValue={existingRequestData?.problem}
           type="text"
           name="problem"
@@ -129,7 +129,7 @@ export default function RequestForm({
         </datalist>
         <label htmlFor="phonenumber">your phone number:*</label>
         <input
-          className="mb-2"
+          className="mb-2 px-2 py-1 rounded"
           defaultValue={existingRequestData?.phonenumber}
           type="text"
           name="phonenumber"
@@ -146,7 +146,7 @@ export default function RequestForm({
         />
         <label htmlFor="locationdetails">location details (optional):</label>
         <input
-          className="mb-2"
+          className="mb-2 px-2 py-1 rounded"
           defaultValue={existingRequestData?.locationdetails}
           type="text"
           name="locationdetails"
@@ -156,7 +156,7 @@ export default function RequestForm({
         />
         <label htmlFor="description">additional description (optional):</label>
         <textarea
-          className="mb-2"
+          className="mb-2 px-2 py-1 rounded"
           defaultValue={existingRequestData?.description}
           name="description"
           id="description"
@@ -167,7 +167,7 @@ export default function RequestForm({
         />
         <label htmlFor="tools">tools needed (optional):</label>
         <input
-          className="mb-2"
+          className="mb-4 px-2 py-1 rounded"
           defaultValue={existingRequestData?.tools}
           type="text"
           name="tools"

@@ -74,7 +74,10 @@ export default function InteractiveBikeMap({
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
       mapLib={import("mapbox-gl")}
       initialViewState={initialViewState}
-      style={{ width: viewport[0] - 20, height: viewport[1] - 300 }} // adjusts to screensize
+      style={{
+        width: Math.min(viewport[0], viewport[1], 616) - 50,
+        height: Math.min(viewport[0], viewport[1], 616) - 50,
+      }} // adjusts to screensize
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
       {marker.longitude && (

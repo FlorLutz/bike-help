@@ -22,7 +22,6 @@ import { redirectServer } from "../../lib/serverActions";
 import useSWR from "swr";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const fetcher = (args: any) => fetch(args).then((res) => res.json());
@@ -30,7 +29,6 @@ const fetcher = (args: any) => fetch(args).then((res) => res.json());
 export default function RequestDetails({
   requestData: requestDetailsData,
 }: any) {
-  const router = useRouter();
   const session: any = useSession();
   const userId = session?.data?.user?.userId;
 
@@ -47,6 +45,9 @@ export default function RequestDetails({
   useEffect(() => {
     getViewport();
   }, []);
+
+  console.log("viewport in reDetPage", viewport);
+  // width: viewport[0] - 20, height: viewport[1] - 300
 
   const {
     data: userData,
@@ -88,7 +89,7 @@ export default function RequestDetails({
     });
     if (response.ok) {
       toast.success(
-        "You have marked the request as resolved. It will now be shown in the request history in your profile page. You can create a new one on this page."
+        "You have marked the request as resolved. It will now be shown in the request history in your profile page. You can create a new request on this page."
       );
     }
   }
@@ -179,7 +180,11 @@ export default function RequestDetails({
           longitude: requestDetailsData.longitude,
           zoom: 17,
         }}
-        style={{ width: viewport[0] - 20, height: viewport[1] - 300 }} // adjusts to screensize
+        style={{
+          width: Math.min(viewport[0], viewport[1], 616) - 50,
+          height: Math.min(viewport[0], viewport[1], 616) - 50,
+        }}
+        // width: viewport[0] - 50, height: viewport[1] - 300 }} // adjusts to screensize
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         <Marker
@@ -230,8 +235,8 @@ export default function RequestDetails({
             <button
               type="button"
               onClick={() => {
-                redirectServer(`/request/${requestDetailsData._id}`);
                 handleResolved(requestDetailsData._id);
+                redirectServer(`/request/`);
               }}
               className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow"
             >
