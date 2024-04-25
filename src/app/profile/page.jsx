@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Layout from "@/components/Layout/Layout";
 import LinkButton from "@/components/LinkButton/LinkButton";
 import { options } from "../api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
@@ -10,11 +9,11 @@ export default async function ProfilePage() {
   const session = await getServerSession(options);
 
   return (
-    <Layout>
-      <main className="m-4">
-        <h1 className="font-bold text-xl mb-6">Profile</h1>
-        {session ? (
-          <>
+    <main className="mx-4 my-8 flex flex-col items-center gap-4 text-lg">
+      <h1 className="font-bold text-2xl mb-6 font-serif">Profile</h1>
+      {session ? (
+        <>
+          <div className="flex flex-col gap-4 items-center sm:flex-row sm:gap-8">
             <Image
               src={session?.user.image}
               alt="profile foto"
@@ -22,19 +21,20 @@ export default async function ProfilePage() {
               height={150}
               className="rounded-full"
             />
-            <p className="mb-4">
-              You are signed in as <strong>{session?.user.name}</strong>.
-            </p>
-            <LinkButton href="api/auth/signout" text="SignOut here" />
-            <ProfileHistory />
-          </>
-        ) : (
-          <>
-            <p className="mb-4">You are not signed in.</p>
-            <LinkButton href="api/auth/signin" text="Please SignIn here" />
-          </>
-        )}
-      </main>
-    </Layout>
+            <div className="flex flex-col">
+              <p>You are signed in as</p>
+              <strong className="mb-2 text-center">{session?.user.name}</strong>
+              <LinkButton href="api/auth/signout" text="SignOut here" />
+            </div>
+          </div>
+          <ProfileHistory />
+        </>
+      ) : (
+        <>
+          <p className="mb-2">You are not signed in.</p>
+          <LinkButton href="api/auth/signin" text="Please SignIn here" />
+        </>
+      )}
+    </main>
   );
 }

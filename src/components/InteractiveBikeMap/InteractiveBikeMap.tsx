@@ -20,13 +20,24 @@ export default function InteractiveBikeMap({
   handleDragEnd,
   marker,
 }: IInteractiveBikeMapProps) {
-  console.log("marker in InteractiveBikeMap", marker);
-
   interface IInitialViewState {
     latitude: number | undefined;
     longitude: number | undefined;
     zoom: number | undefined;
   }
+
+  //viewport adjustment to windowsize
+  const [viewport, setViewport]: [number[] | any, Function] = useState([]);
+
+  function getViewport() {
+    if (typeof window !== "undefined") {
+      const currentViewport = [window.innerWidth, window.innerHeight];
+      setViewport(currentViewport);
+    }
+  }
+  useEffect(() => {
+    getViewport();
+  }, []);
 
   const [initialViewState, setInitialViewState]: [IInitialViewState, Function] =
     useState({ latitude: undefined, longitude: undefined, zoom: undefined });
@@ -43,7 +54,7 @@ export default function InteractiveBikeMap({
           setInitialViewState({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
-            zoom: 16,
+            zoom: 17,
           });
         });
       } else {
@@ -52,7 +63,6 @@ export default function InteractiveBikeMap({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("NEW initialViewState", initialViewState);
 
   if (!initialViewState.latitude) {
     return;
@@ -64,7 +74,10 @@ export default function InteractiveBikeMap({
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
       mapLib={import("mapbox-gl")}
       initialViewState={initialViewState}
-      style={{ width: 400, height: 400 }} // adjusts to screensize
+      style={{
+        width: Math.min(viewport[0], viewport[1], 626) - 50,
+        height: Math.min(viewport[0], viewport[1], 626) - 50,
+      }} // adjusts to screensize
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
       {marker.longitude && (
@@ -73,8 +86,9 @@ export default function InteractiveBikeMap({
           latitude={marker.latitude}
           draggable
           onDragEnd={handleDragEnd}
+          anchor="center"
         >
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center text-orange-700">
             <strong>HELP!</strong>
             <FontAwesomeIcon
               icon={faScrewdriverWrench}

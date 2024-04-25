@@ -30,14 +30,14 @@ export default function MarkerRequest({
     <Marker
       longitude={requestData.longitude}
       latitude={requestData.latitude}
-      anchor="bottom"
+      anchor="center"
     >
       <section
         onClick={(e) => {
           e.stopPropagation();
           handleAdditionalInfo(requestData, type);
         }}
-        className="flex flex-col items-center z-10"
+        className="flex flex-col items-center z-10 text-orange-700"
       >
         <strong>HELP!</strong>
         <FontAwesomeIcon

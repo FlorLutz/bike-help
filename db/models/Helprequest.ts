@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 const HelprequestSchema = new Schema({
   problem: { type: String, required: true },
+  phonenumber: { type: String, required: true },
   description: { type: String, required: false },
   locationdetails: { type: String, required: false },
   tools: { type: String, required: false },

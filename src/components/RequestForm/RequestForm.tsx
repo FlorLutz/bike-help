@@ -1,8 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import InteractiveBikeMap from "../InteractiveMap/InteractiveBikeMap";
+import InteractiveBikeMap from "../InteractiveBikeMap/InteractiveBikeMap";
 import type { MarkerDragEvent } from "react-map-gl";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+import { redirectServer } from "@/lib/serverActions";
 
 export default function RequestForm({
   userId,
@@ -17,11 +19,10 @@ export default function RequestForm({
 }) {
   //when creating a new request link it to the user too (by adding its id to the array of requests)
   const router = useRouter();
-  console.log("editMode", editMode);
   async function handleSubmit(event: any) {
     event.preventDefault();
     if (!marker.longitude) {
-      alert("Please set a location on the map first");
+      toast.error("Please set a location on the map first");
       return;
     }
     const formData = new FormData(event.target);
@@ -36,7 +37,6 @@ export default function RequestForm({
       latitude,
       userId: userId,
     };
-    console.log("helpRequestData", helpRequestData);
     if (!editMode) {
       const response = await fetch("api/requests", {
         method: "POST",
@@ -46,8 +46,7 @@ export default function RequestForm({
         body: JSON.stringify(helpRequestData),
       });
       if (response.ok) {
-        console.log("response ok");
-        alert(
+        toast.success(
           "You have successfully created a new request. You can view, edit and delete it on this page."
         );
         router.refresh();
@@ -65,11 +64,10 @@ export default function RequestForm({
         }
       );
       if (response.ok) {
-        console.log("response ok");
-        alert(
+        toast.success(
           "You have successfully updated this request. You can still view, edit and delete it on this page."
         );
-        router.refresh();
+        redirectServer(`/request`);
       }
     }
   }
@@ -90,12 +88,9 @@ export default function RequestForm({
   }
 
   function handleDragEnd(event: MarkerDragEvent) {
-    console.log("dragendevent", event.lngLat);
     const { lng, lat } = event.lngLat;
     setMarker({ longitude: lng, latitude: lat });
   }
-
-  // console.log("exlong", existingRequestData.longitude);
 
   useEffect(() => {
     editMode &&
@@ -107,16 +102,15 @@ export default function RequestForm({
   }, []);
 
   return (
-    <section>
-      {editMode ? (
-        <h1 className="font-bold text-xl mb-6">Edit Request</h1>
-      ) : (
-        <h1 className="font-bold text-xl mb-6">New Request</h1>
-      )}
+    <section className="px-4 mx-4 my-8 flex flex-col items-center gap-4 text-lg">
+      <h1 className="font-bold text-2xl mb-6 font-serif">
+        {editMode ? "Edit Request" : "New Request"}
+      </h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <label htmlFor="problem">What part is broken/not working:*</label>
         <input
+          className="mb-2 px-2 py-1 rounded"
           defaultValue={existingRequestData?.problem}
           type="text"
           name="problem"
@@ -133,6 +127,18 @@ export default function RequestForm({
           <option>breaks stopped working</option>
           <option>shifters stopped working</option>
         </datalist>
+        <label htmlFor="phonenumber">your phone number:*</label>
+        <input
+          className="mb-2 px-2 py-1 rounded"
+          defaultValue={existingRequestData?.phonenumber}
+          type="text"
+          name="phonenumber"
+          id="phonennumber"
+          required
+          minLength={10}
+          maxLength={40}
+          placeholder="e.g. 0049-1234 567890"
+        />
         <InteractiveBikeMap
           handleMapClick={handleMapClick}
           handleDragEnd={handleDragEnd}
@@ -140,15 +146,17 @@ export default function RequestForm({
         />
         <label htmlFor="locationdetails">location details (optional):</label>
         <input
+          className="mb-2 px-2 py-1 rounded"
           defaultValue={existingRequestData?.locationdetails}
           type="text"
           name="locationdetails"
           id="locationdetails"
           maxLength={40}
-          placeholder="e.g. I stand next to the big tree, opposite from a bank"
+          placeholder="e.g. I stand in front of the big bank"
         />
         <label htmlFor="description">additional description (optional):</label>
         <textarea
+          className="mb-2 px-2 py-1 rounded"
           defaultValue={existingRequestData?.description}
           name="description"
           id="description"
@@ -159,16 +167,17 @@ export default function RequestForm({
         />
         <label htmlFor="tools">tools needed (optional):</label>
         <input
+          className="mb-4 px-2 py-1 rounded"
           defaultValue={existingRequestData?.tools}
           type="text"
           name="tools"
           id="tools"
           maxLength={40}
-          placeholder='e.g. tire levers, patch and glue or a new 28" race tube'
+          placeholder="e.g. tire levers, patch and glue"
         />
         <button
           type="submit"
-          className="border-4 border-emerald-950 p-2 rounded bg-emerald-500"
+          className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
         >
           {editMode ? "Save edit" : "Request help"}
         </button>

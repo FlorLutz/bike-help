@@ -12,7 +12,6 @@ export const options: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       profile(profile) {
-        // console.log("PROFILE!!!", profile);
         return {
           id: profile.sub,
           name: profile.name,
@@ -29,7 +28,6 @@ export const options: NextAuthOptions = {
       return session;
     },
     async redirect({ url, baseUrl }) {
-      console.log(baseUrl, "baseUrl", url, "url");
       url = "/profile";
       // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`;

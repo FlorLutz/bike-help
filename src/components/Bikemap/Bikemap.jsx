@@ -39,7 +39,6 @@ export default function Bikemap() {
 
   const [popupInfo, setPopupInfo] = useState(null);
   function handleAdditionalInfo(markerData, type) {
-    console.log("setting popupinfo to:", markerData);
     setPopupInfo({
       longitude: markerData.longitude,
       latitude: markerData.latitude,
@@ -57,7 +56,6 @@ export default function Bikemap() {
       userId: markerData.userId,
     });
   }
-  console.log("set popupinfo to:", popupInfo);
 
   //viewport adjustment to windowsize
   const [viewport, setViewport] = useState([]);

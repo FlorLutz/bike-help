@@ -2,6 +2,13 @@ import React from "react";
 import { Popup } from "react-map-gl";
 import { getMyDateString } from "../../lib/clientActions";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClock,
+  faInfo,
+  faWrench,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface IPopupInfo {
   longitude: number;
@@ -50,32 +57,69 @@ export default function PopupMarker({
       longitude={longitude}
       latitude={latitude}
       anchor="bottom"
+      offset={20}
       onClose={() => {
         setPopupInfo(null);
       }}
     >
-      <section>
-        <h1 className="font-bold text-xl">{type}</h1>
-        {title && <h2 className="font-bold text-lg">{title}</h2>}
+      <section className="text-lg space-y-1 font-sans text-emerald-950">
+        {title && <h2 className="font-bold text-xl">{title}</h2>}
         <h2 className="font-bold text-lg">{problem}</h2>
+        <p>
+          {type === "Point of Interest" ? "*get help here" : "*help request"}
+        </p>
         {date && (
-          <p>{`created: ${getMyDateString(
-            date
-          )} by user with id: ${userId}`}</p>
+          <>
+            <FontAwesomeIcon icon={faClock} />
+            <p>
+              {`created: ${getMyDateString(date)}`}
+              {/* by user with id: ${userId}`} */}
+            </p>
+          </>
         )}
+        <FontAwesomeIcon icon={faInfo} />
         <p>{description}</p>
-        {adress && <p>{adress}</p>}
-        {openingHours && <p>{openingHours}</p>}
+        {adress && (
+          <>
+            <FontAwesomeIcon icon={faLocationDot} />
+            <p>{adress}</p>
+          </>
+        )}
+        {openingHours && (
+          <>
+            <FontAwesomeIcon icon={faClock} />
+            <p>{openingHours}</p>
+          </>
+        )}
         {url && (
-          <Link href={url} className="text-emerald-500">
-            {" "}
-            got to website
+          <Link
+            href={url}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-emerald-500 font-bold"
+          >
+            Go to website
           </Link>
         )}
-        {locationDetails && <p>{locationDetails}</p>}
-        {tools && <p>{tools}</p>}
-        {requestId && (
-          <Link href={`/request/${requestId}`} className="text-emerald-500">
+        {locationDetails && (
+          <>
+            <FontAwesomeIcon icon={faLocationDot} />
+            <p>{locationDetails}</p>
+          </>
+        )}
+        {tools && (
+          <>
+            <FontAwesomeIcon icon={faWrench} />
+            <p>{tools}</p>
+          </>
+        )}
+        {problem && (
+          <Link
+            href={`/request/${requestId}`}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-emerald-500 font-bold"
+          >
             Show details
           </Link>
         )}
