@@ -116,8 +116,6 @@ export default function PopupMarker({
         {problem && (
           <Link
             href={`/request/${requestId}`}
-            rel="noopener noreferrer"
-            target="_blank"
             className="text-emerald-500 font-bold"
           >
             Show details
