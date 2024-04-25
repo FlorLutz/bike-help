@@ -75,8 +75,8 @@ export default function InteractiveBikeMap({
       mapLib={import("mapbox-gl")}
       initialViewState={initialViewState}
       style={{
-        width: Math.min(viewport[0], viewport[1], 616) - 50,
-        height: Math.min(viewport[0], viewport[1], 616) - 50,
+        width: Math.min(viewport[0], viewport[1], 626) - 50,
+        height: Math.min(viewport[0], viewport[1], 626) - 50,
       }} // adjusts to screensize
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >

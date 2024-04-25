@@ -46,8 +46,7 @@ export default function RequestDetails({
     getViewport();
   }, []);
 
-  console.log("viewport in reDetPage", viewport);
-  // width: viewport[0] - 20, height: viewport[1] - 300
+  // console.log("viewport in reDetPage", viewport);
 
   const {
     data: userData,
@@ -61,8 +60,8 @@ export default function RequestDetails({
   if (isLoading) {
     return <p>userdata is loading</p>;
   }
-  if (!userData) {
-    return;
+  if (!userData || viewport.length === 0 || !requestDetailsData) {
+    return <p>loaging elements</p>;
   }
 
   async function handleDelete(id: string, userId: string) {
@@ -181,10 +180,9 @@ export default function RequestDetails({
           zoom: 17,
         }}
         style={{
-          width: Math.min(viewport[0], viewport[1], 616) - 50,
-          height: Math.min(viewport[0], viewport[1], 616) - 50,
+          width: Math.min(viewport[0], viewport[1], 626) - 50,
+          height: Math.min(viewport[0], viewport[1], 626) - 50,
         }}
-        // width: viewport[0] - 50, height: viewport[1] - 300 }} // adjusts to screensize
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         <Marker
