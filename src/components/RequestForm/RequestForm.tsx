@@ -5,6 +5,8 @@ import type { MarkerDragEvent } from "react-map-gl";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { redirectServer } from "@/lib/serverActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faHandshakeSimple } from "@fortawesome/free-solid-svg-icons";
 
 export default function RequestForm({
   userId,
@@ -175,11 +177,23 @@ export default function RequestForm({
           maxLength={40}
           placeholder="e.g. tire levers, patch and glue"
         />
+
         <button
           type="submit"
-          className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
+          className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
+          // className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
         >
-          {editMode ? "Save edit" : "Request help"}
+          {editMode ? (
+            <>
+              <FontAwesomeIcon icon={faSave} className="pt-0.5" />
+              save edit
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faHandshakeSimple} className="pt-0.5" />
+              request help
+            </>
+          )}
         </button>
       </form>
     </section>

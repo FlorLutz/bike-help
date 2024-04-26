@@ -226,9 +226,9 @@ export default function RequestDetails({
             <button
               type="button"
               onClick={() => setEditMode(true)}
-              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow"
+              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
             >
-              <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
+              <FontAwesomeIcon icon={faPenToSquare} className="pt-0.5" />
               edit
             </button>
             <button
@@ -237,9 +237,9 @@ export default function RequestDetails({
                 handleDelete(requestDetailsData._id, requestDetailsData.userId);
                 redirectServer("/request");
               }}
-              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow"
+              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
             >
-              <FontAwesomeIcon icon={faTrash} className="mr-2" />
+              <FontAwesomeIcon icon={faTrash} className="pt-0.5" />
               delete
             </button>
             <button
@@ -248,10 +248,10 @@ export default function RequestDetails({
                 handleResolved(requestDetailsData._id);
                 redirectServer(`/request/`);
               }}
-              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow"
+              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
             >
-              <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
-              mark as resolved
+              <FontAwesomeIcon icon={faCircleCheck} className="pt-0.5" />
+              resolved
             </button>
           </div>
         </>
