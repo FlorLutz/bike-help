@@ -6,12 +6,14 @@ import MarkerPOI from "../MarkerPOI/MarkerPOI";
 import MarkerRequest from "../MarkerRequest/MarkerRequest";
 import PopupMarker from "../PopupMarker/PopupMarker";
 import useSWR from "swr";
+import { RotatingLines } from "react-loader-spinner";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Bikemap() {
+  //map center on location
   const [initialViewState, setInitialViewState] = useState({});
-  useEffect(() => {
+  function getViewstate() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setInitialViewState({
@@ -23,6 +25,20 @@ export default function Bikemap() {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
+  }
+
+  //viewport adjustment to windowsize
+  const [viewport, setViewport] = useState([]);
+  function getViewport() {
+    if (typeof window !== "undefined") {
+      const currentViewport = [window.innerWidth, window.innerHeight];
+      setViewport(currentViewport);
+    }
+  }
+
+  useEffect(() => {
+    getViewport();
+    getViewstate();
   }, []);
 
   const {
@@ -53,21 +69,9 @@ export default function Bikemap() {
       locationDetails: markerData.locationDetails,
       tools: markerData.tools,
       requestId: markerData._id,
-      userId: markerData.userId,
+      // userId: markerData.userId,
     });
   }
-
-  //viewport adjustment to windowsize
-  const [viewport, setViewport] = useState([]);
-  function getViewport() {
-    if (typeof window !== "undefined") {
-      const currentViewport = [window.innerWidth, window.innerHeight];
-      setViewport(currentViewport);
-    }
-  }
-  useEffect(() => {
-    getViewport();
-  }, []);
 
   if (!openRequestsData || !poiData || !initialViewState.latitude) {
     return;
@@ -82,8 +86,18 @@ export default function Bikemap() {
 
   return (
     <>
-      {poiIsLoading && <p>Waiting for POI data</p>}
-      {openRequestsIsLoading && <p>Waiting for Request data</p>}
+      {(poiIsLoading || openRequestsIsLoading) ?? (
+        <div className="absolute top-1/4 left-1/4 flex flex-col justify-center">
+          <RotatingLines
+            visible={true}
+            width="150"
+            strokeWidth="5"
+            animationDuration="0.75"
+            ariaLabel="rotating-lines-loading"
+          />
+          <p>loading ...</p>
+        </div>
+      )}
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}

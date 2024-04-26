@@ -3,22 +3,26 @@
 import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHandshakeSimple, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>
-      <header className="bg-emerald-500 text-4xl py-4 h-[72px] fixed top-0 left-0 w-full z-10">
+      <header className="bg-emerald-500 text-4xl h-[72px] fixed top-0 left-0 w-full z-10">
         <div className="flex justify-center">
-          <Link href="/" className="flex">
-            <FontAwesomeIcon
-              icon={faHandshakeSimple}
-              className="mt-1"
-            ></FontAwesomeIcon>{" "}
-            <p className="font-bold font-serif ml-4">Bike Help</p>
+          <Link href="/" className="flex justify-center">
+            <Image
+              src="/logo.svg"
+              height={60}
+              width={60}
+              alt="logo"
+              className="mr-1"
+            />
+            <p className="font-bold font-serif ml-2 py-3 pr-6">Bike Help</p>
           </Link>
         </div>
         <div className="flex items-center justify-between absolute right-2 top-4">

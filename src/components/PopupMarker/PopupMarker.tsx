@@ -1,16 +1,16 @@
 import React from "react";
 import { Popup } from "react-map-gl";
-import { getMyDateString } from "../../lib/clientActions";
+import { getTimeDifference } from "../../lib/clientActions";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
-  faInfo,
   faWrench,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
-interface IPopupInfo {
+interface PopupInfo {
   longitude: number;
   latitude: number;
   type: string;
@@ -27,15 +27,15 @@ interface IPopupInfo {
   userId: string;
 }
 
-interface IPopupMarkerProps {
-  popupInfo: IPopupInfo;
+interface PopupMarkerProps {
+  popupInfo: PopupInfo;
   setPopupInfo: Function;
 }
 
 export default function PopupMarker({
   popupInfo,
   setPopupInfo,
-}: IPopupMarkerProps) {
+}: PopupMarkerProps) {
   const {
     longitude,
     latitude,
@@ -50,7 +50,7 @@ export default function PopupMarker({
     locationDetails,
     tools,
     requestId,
-    userId,
+    // userId,
   } = popupInfo;
   return (
     <Popup
@@ -62,22 +62,31 @@ export default function PopupMarker({
         setPopupInfo(null);
       }}
     >
-      <section className="text-lg space-y-1 font-sans text-emerald-950">
-        {title && <h2 className="font-bold text-xl">{title}</h2>}
-        <h2 className="font-bold text-lg">{problem}</h2>
+      <section className="text-lg space-y-1 font-sans text-emerald-950 flex flex-col justify-center">
+        {title && <h2 className="font-bold text-xl text-center">{title}</h2>}
+        <h2 className="font-bold text-lg text-center">{problem}</h2>
+        <Image
+          className="rounded-full self-center"
+          src={
+            title
+              ? description.includes("DIY")
+                ? "/diy.jpg"
+                : "/repair-station.jpg"
+              : "/broken-bike.jpg"
+          }
+          width={150}
+          height={150}
+          alt="foto to ilustrate marker type"
+        />
         <p>
           {type === "Point of Interest" ? "*get help here" : "*help request"}
         </p>
         {date && (
           <>
             <FontAwesomeIcon icon={faClock} />
-            <p>
-              {`created: ${getMyDateString(date)}`}
-              {/* by user with id: ${userId}`} */}
-            </p>
+            <p>{`created: ${getTimeDifference(date)}`}</p>
           </>
         )}
-        <FontAwesomeIcon icon={faInfo} />
         <p>{description}</p>
         {adress && (
           <>
@@ -96,7 +105,7 @@ export default function PopupMarker({
             href={url}
             rel="noopener noreferrer"
             target="_blank"
-            className="text-emerald-500 font-bold"
+            className="text-emerald-500 font-bold text-center"
           >
             Go to website
           </Link>
@@ -116,7 +125,7 @@ export default function PopupMarker({
         {problem && (
           <Link
             href={`/request/${requestId}`}
-            className="text-emerald-500 font-bold"
+            className="text-emerald-500 font-bold text-center"
           >
             Show details
           </Link>

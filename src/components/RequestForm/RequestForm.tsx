@@ -14,8 +14,8 @@ export default function RequestForm({
 }: {
   userId: string;
   editMode: boolean | undefined;
-  existingRequestData: any;
-  handleSaveEdit: any;
+  existingRequestData: any | undefined;
+  handleSaveEdit: Function | null;
 }) {
   //when creating a new request link it to the user too (by adding its id to the array of requests)
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function RequestForm({
         router.refresh();
       }
     } else {
-      handleSaveEdit();
+      handleSaveEdit && handleSaveEdit();
       const response = await fetch(
         `../api/requests/byrequestid/${existingRequestData._id}`,
         {
@@ -72,17 +72,17 @@ export default function RequestForm({
     }
   }
 
-  interface IMarker {
+  interface Marker {
     longitude: number | undefined;
     latitude: number | undefined;
   }
-  const [marker, setMarker]: [IMarker | any, Function] = useState({});
+  const [marker, setMarker]: [Marker | any, Function] = useState({});
 
-  interface IlngLat {
+  interface LngLat {
     lngLat: { lng: number; lat: number };
   }
 
-  function handleMapClick({ lngLat }: IlngLat) {
+  function handleMapClick({ lngLat }: LngLat) {
     const { lng, lat } = lngLat;
     setMarker({ longitude: lng, latitude: lat });
   }

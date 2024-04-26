@@ -1,16 +1,16 @@
 import React from "react";
 import Link from "next/link";
 
-interface ILinkButtonProps {
+interface LinkButtonProps {
   href: string;
   text: string;
 }
 
-export default function LinkButton({ href, text }: ILinkButtonProps) {
+export default function LinkButton({ href, text }: LinkButtonProps) {
   return (
     <Link
       href={href}
-      className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold"
+      className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold text-center"
     >
       {text}
     </Link>

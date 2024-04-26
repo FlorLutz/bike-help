@@ -2,9 +2,8 @@ import React from "react";
 import { Marker } from "react-map-gl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
-// import { getMyTimeString } from "../../lib/clientActions";
 
-interface IMarkerRequestProps {
+interface MarkerRequestProps {
   requestData: {
     _id: string;
     longitude: number;
@@ -25,7 +24,7 @@ export default function MarkerRequest({
   requestData,
   handleAdditionalInfo,
   type,
-}: IMarkerRequestProps) {
+}: MarkerRequestProps) {
   return (
     <Marker
       longitude={requestData.longitude}
@@ -37,7 +36,7 @@ export default function MarkerRequest({
           e.stopPropagation();
           handleAdditionalInfo(requestData, type);
         }}
-        className="flex flex-col items-center z-10 text-orange-700"
+        className="flex flex-col items-center z-10 text-orange-900"
       >
         <strong>HELP!</strong>
         <FontAwesomeIcon

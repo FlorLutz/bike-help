@@ -10,7 +10,7 @@ import Helprequest from "../../../db/models/Helprequest";
 export const revalidate = 0.5;
 
 export default async function RequestPage() {
-  const session = await getServerSession(options);
+  const session: any = await getServerSession(options);
   const userId = session?.user.userId;
 
   let openRequestData = [];
@@ -31,7 +31,12 @@ export default async function RequestPage() {
   return (
     <main className="m-4">
       {session ? (
-        <RequestForm userId={userId} />
+        <RequestForm
+          userId={userId}
+          editMode={false}
+          existingRequestData={undefined}
+          handleSaveEdit={null}
+        />
       ) : (
         <section>
           <p className="mb-4">You are not signed in.</p>
