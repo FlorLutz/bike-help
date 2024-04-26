@@ -34,8 +34,8 @@ export default async function ProfilePage() {
         </>
       ) : (
         <>
-          <p className="mb-2">You are not signed in.</p>
-          <LinkButton href="api/auth/signin" text="Please SignIn here" />
+          <p className="mb-2">You are currently not signed in.</p>
+          <LinkButton href="api/auth/signin" text="Please sign in here" />
         </>
       )}
     </main>

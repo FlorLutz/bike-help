@@ -4,6 +4,8 @@ import RequestDetails from "@/components/RequestDetails/RequestDetails";
 import useSWR from "swr";
 import { redirectServer } from "../../../lib/serverActions";
 import { RotatingLines } from "react-loader-spinner";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const fetcher = (args: string) => fetch(args).then((res) => res.json());
 
@@ -14,6 +16,14 @@ interface Params {
 }
 
 export default function Request({ params }: Params) {
+  const session = useSession();
+  console.log(session);
+  // const router = useRouter();
+  if (session.status === "unauthenticated") {
+    // router.push("/request");
+    redirectServer("/request");
+  }
+
   const {
     data: requestData,
     error,

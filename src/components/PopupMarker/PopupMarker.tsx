@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Popup } from "react-map-gl";
 import { getTimeDifference } from "../../lib/clientActions";
@@ -9,6 +10,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 interface PopupInfo {
   longitude: number;
@@ -52,6 +54,9 @@ export default function PopupMarker({
     requestId,
     // userId,
   } = popupInfo;
+
+  const session = useSession();
+
   return (
     <Popup
       longitude={longitude}
@@ -124,7 +129,11 @@ export default function PopupMarker({
         )}
         {problem && (
           <Link
-            href={`/request/${requestId}`}
+            href={
+              session.status === "unauthenticated"
+                ? "/request"
+                : `/request/${requestId}`
+            }
             className="text-emerald-500 font-bold text-center"
           >
             Show details

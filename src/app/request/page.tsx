@@ -38,11 +38,13 @@ export default async function RequestPage() {
           handleSaveEdit={null}
         />
       ) : (
-        <section>
-          <p className="mb-4">You are not signed in.</p>
+        <section className="flex flex-col gap-4 items-center">
+          <p className="mt-12 mb-4 text-center">
+            You are currently not signed in.
+          </p>
           <LinkButton
             href="api/auth/signin"
-            text="Please SignIn here to create a request"
+            text="Please sign in here to view or create requests"
           />
         </section>
       )}
