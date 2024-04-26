@@ -25,14 +25,15 @@ export default function Request({ params }: Params) {
   }
   if (isLoading) {
     return (
-      <div className="w-[300px] m-auto -translate-x-1/4">
+      <div className="w-[300] m-auto -translate-x-1/2 flex flex-col justify-center">
         <RotatingLines
           visible={true}
-          width="300"
+          width="100"
           strokeWidth="5"
           animationDuration="0.75"
           ariaLabel="rotating-lines-loading"
         />
+        <p>loading ...</p>
       </div>
     );
   }

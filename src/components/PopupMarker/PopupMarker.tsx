@@ -63,8 +63,8 @@ export default function PopupMarker({
       }}
     >
       <section className="text-lg space-y-1 font-sans text-emerald-950 flex flex-col justify-center">
-        {title && <h2 className="font-bold text-xl">{title}</h2>}
-        <h2 className="font-bold text-lg">{problem}</h2>
+        {title && <h2 className="font-bold text-xl text-center">{title}</h2>}
+        <h2 className="font-bold text-lg text-center">{problem}</h2>
         <Image
           className="rounded-full self-center"
           src={
@@ -84,7 +84,7 @@ export default function PopupMarker({
         {date && (
           <>
             <FontAwesomeIcon icon={faClock} />
-            <p>{`created: ${getTimeDifference(date)} ago`}</p>
+            <p>{`created: ${getTimeDifference(date)}`}</p>
           </>
         )}
         <p>{description}</p>
@@ -105,7 +105,7 @@ export default function PopupMarker({
             href={url}
             rel="noopener noreferrer"
             target="_blank"
-            className="text-emerald-500 font-bold"
+            className="text-emerald-500 font-bold text-center"
           >
             Go to website
           </Link>
@@ -125,7 +125,7 @@ export default function PopupMarker({
         {problem && (
           <Link
             href={`/request/${requestId}`}
-            className="text-emerald-500 font-bold"
+            className="text-emerald-500 font-bold text-center"
           >
             Show details
           </Link>

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Aboutpage() {
   return (
-    <main className="px-4 my-8 flex flex-col items-center gap-4 text-lg max-w-[400px] text-center mx-auto">
+    <main className="px-4 my-8 flex flex-col items-center gap-4 text-lg max-w-[600px] text-center mx-auto">
       <h1 className="font-bold text-2xl mb-6 font-serif">About Bike Help</h1>
       <p>
         This App was developed by Florian Lutz as a final project for his

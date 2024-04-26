@@ -87,17 +87,17 @@ export default function Bikemap() {
   return (
     <>
       {(poiIsLoading || openRequestsIsLoading) ?? (
-        <div className="absolute top-1/4 left-1/4">
+        <div className="absolute top-1/4 left-1/4 flex flex-col justify-center">
           <RotatingLines
             visible={true}
-            width="300"
+            width="150"
             strokeWidth="5"
             animationDuration="0.75"
             ariaLabel="rotating-lines-loading"
           />
+          <p>loading ...</p>
         </div>
       )}
-      {/* {openRequestsIsLoading && <p>Waiting for Request data</p>} */}
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         mapLib={import("mapbox-gl")}

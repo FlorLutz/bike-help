@@ -16,11 +16,11 @@ export function getTimeDifference(date: string) {
   const minutesRounded = Math.floor((diffTimeHours - hoursRoundedDown) * 60);
   let hoursAndMinutesDifference: string;
   if (hoursRoundedDown === 0 && minutesRounded === 0) {
-    hoursAndMinutesDifference = "now";
+    hoursAndMinutesDifference = "just now";
   } else if (hoursRoundedDown === 0) {
-    hoursAndMinutesDifference = `${minutesRounded} minute(s)`;
+    hoursAndMinutesDifference = `${minutesRounded} minute(s) ago`;
   } else {
-    hoursAndMinutesDifference = `${hoursRoundedDown} hour(s) and ${minutesRounded} minute(s)`;
+    hoursAndMinutesDifference = `${hoursRoundedDown} hour(s) and ${minutesRounded} minute(s) ago`;
   }
   return hoursAndMinutesDifference;
 }

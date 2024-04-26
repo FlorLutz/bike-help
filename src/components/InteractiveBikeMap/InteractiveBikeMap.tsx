@@ -89,7 +89,7 @@ export default function InteractiveBikeMap({
           onDragEnd={handleDragEnd}
           anchor="center"
         >
-          <div className="flex flex-col items-center text-orange-950">
+          <div className="flex flex-col items-center text-orange-900">
             <strong>HELP!</strong>
             <FontAwesomeIcon
               icon={faScrewdriverWrench}
