@@ -3,3 +3,17 @@
 @tailwind utilities;
 
 @import "mapbox-gl/dist/mapbox-gl.css";
+
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px #059669;
+  padding: 10px 10px 15px;
+  pointer-events: auto;
+  position: relative;
+}

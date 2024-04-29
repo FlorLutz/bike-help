@@ -5,7 +5,6 @@ import useSWR from "swr";
 import { redirectServer } from "../../../lib/serverActions";
 import { RotatingLines } from "react-loader-spinner";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
 const fetcher = (args: string) => fetch(args).then((res) => res.json());
 

@@ -6,13 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const pathName = usePathname();
 
   return (
     <>
-      <header className="bg-emerald-500 text-4xl h-[72px] fixed top-0 left-0 w-full z-10">
+      <header className="shadow-md shadow-emerald-600 bg-emerald-500 text-4xl h-[72px] fixed top-0 left-0 w-full z-10">
         <div className="flex justify-center">
           <Link href="/" className="flex justify-center">
             <Image
@@ -56,13 +58,13 @@ export default function Header() {
             </section>
 
             <ul className="DESKTOP-MENU hidden space-x-8 lg:flex mr-4 text-xl font-bold">
-              <li>
+              <li className={`${pathName === "/help" && "text-white"}`}>
                 <Link href="/help">help</Link>
               </li>
-              <li>
+              <li className={`${pathName === "/about" && "text-white"}`}>
                 <Link href="/about">about</Link>
               </li>
-              <li>
+              <li className={`${pathName === "/imprint" && "text-white"}`}>
                 <Link href="/imprint">imprint</Link>
               </li>
             </ul>

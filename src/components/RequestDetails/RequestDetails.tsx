@@ -120,7 +120,7 @@ export default function RequestDetails({
       {!requestDetailsData.isOpen && (
         <button
           onClick={() => redirectServer("/request")}
-          className="w-[400px] px-4 flex gap-4 border-4 rounded border-emerald-950 bg-emerald-500 mb-8"
+          className="w-[400px] px-4 flex gap-4 border-2 rounded-full border-emerald-950 bg-emerald-500 mb-8"
         >
           <FontAwesomeIcon icon={faLightbulb} className="text-2xl mt-2" />
           This request has been solved. <br />
@@ -226,7 +226,7 @@ export default function RequestDetails({
             <button
               type="button"
               onClick={() => setEditMode(true)}
-              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
+              className="shadow-md shadow-emerald-600 border-2 border-emerald-950 py-2 px-4 rounded-full bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
             >
               <FontAwesomeIcon icon={faPenToSquare} className="pt-0.5" />
               edit
@@ -237,7 +237,7 @@ export default function RequestDetails({
                 handleDelete(requestDetailsData._id, requestDetailsData.userId);
                 redirectServer("/request");
               }}
-              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
+              className="shadow-md shadow-emerald-600 border-2 border-emerald-950 py-2 px-4 rounded-full bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
             >
               <FontAwesomeIcon icon={faTrash} className="pt-0.5" />
               delete
@@ -248,7 +248,7 @@ export default function RequestDetails({
                 handleResolved(requestDetailsData._id);
                 redirectServer(`/request/`);
               }}
-              className="border-4 border-emerald-950 py-2 px-4 rounded bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
+              className="shadow-md shadow-emerald-600 border-2 border-emerald-950 py-2 px-4 rounded-full bg-emerald-500 font-semibold grow flex flex-row flex-wrap justify-center gap-2"
             >
               <FontAwesomeIcon icon={faCircleCheck} className="pt-0.5" />
               resolved
