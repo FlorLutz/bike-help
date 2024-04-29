@@ -1,6 +1,7 @@
 # bike-help
 
 This is an app that helps cyclists in need for a quick fix for their bike. Along their way, people encounter common annoying problems like a flat tire or a torn bowden wire. At the same time, there might be people closeby who happen to have a little time and the right tools to help out. Bike Help wants to connect these people and contribute to an active cycling community.
+This App was developed as a final project for his Full-Stack WebDev Training at Spiced Academy. The approach was to create a mobile first app, that works well in portrait mode. Some of the technologies used were: NextJS AppRputer, React, Typescript, Tailwind, MapBox and MongoDB with mongoose. As for now, there are no intentions for offering this app for users. Feel free to get in touch with me. Any feedback is gladly welcome.
 Here are user stories that illustrate its use cases.
 
 ## User Story 1: Basic Layout
