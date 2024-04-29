@@ -67,7 +67,7 @@ export default function PopupMarker({
         setPopupInfo(null);
       }}
     >
-      <section className="text-lg space-y-1 font-sans text-emerald-950 flex flex-col justify-center">
+      <section className="text-lg font-sans text-emerald-950 flex flex-col justify-center gap-1">
         {title && <h2 className="font-bold text-xl text-center">{title}</h2>}
         <h2 className="font-bold text-lg text-center">{problem}</h2>
         <Image
@@ -112,7 +112,7 @@ export default function PopupMarker({
             target="_blank"
             className="text-emerald-500 font-bold text-center"
           >
-            Go to website
+            view website
           </Link>
         )}
         {locationDetails && (
@@ -136,7 +136,7 @@ export default function PopupMarker({
             }
             className="text-emerald-500 font-bold text-center"
           >
-            Show details
+            see details
           </Link>
         )}
       </section>

@@ -10,7 +10,7 @@ export default function LinkButton({ href, text }: LinkButtonProps) {
   return (
     <Link
       href={href}
-      className="border-4 border-emerald-950 p-2 rounded bg-emerald-500 font-semibold text-center"
+      className="shadow-md shadow-emerald-600 border-2 border-emerald-950 py-2 px-4 rounded-full bg-emerald-500 font-semibold text-center"
     >
       {text}
     </Link>

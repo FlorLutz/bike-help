@@ -32,16 +32,18 @@ export default async function ProfileHistory() {
           {solvedRequests.map((solvedRequest: any) => (
             <section
               key={solvedRequest._id}
-              className="p-4 w-[220px] border-4 border-emerald-950 rounded"
+              className="shadow-md shadow-emerald-600 p-4 w-[220px] min-h-[220px] border-2 border-emerald-950 rounded-xl relative"
             >
               <p className="font-bold">problem</p>
               <p>{solvedRequest.problem}</p>
               <p className="font-bold">created/modified</p>
               <p className="mb-4">{getMyDateString(solvedRequest.date)}</p>
-              <LinkButton
-                href={`/request/${solvedRequest._id}`}
-                text={`See details here`}
-              />
+              <div className="absolute left-1/2 translate-x-[-50%] bottom-6 text-sm">
+                <LinkButton
+                  href={`/request/${solvedRequest._id}`}
+                  text={`See details`}
+                />
+              </div>
             </section>
           ))}
         </div>
